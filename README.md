@@ -1,4 +1,4 @@
-# Attendance Calculator Pro
+# Attendance Calculator 
 
 A Java Swing-based attendance tracking application for students.
 
