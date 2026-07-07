@@ -99,6 +99,17 @@ public class AttendanceCalculator extends JFrame {
         fileMenu.add(exportMenu);
         fileMenu.add(importMenu);
         fileMenu.addSeparator();
+        JMenuItem resetMenu = new JMenuItem("Reset Fields");
+        resetMenu.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        resetMenu.addActionListener(e -> {
+            subjectField.setText("");
+            totalClassesField.setText("");
+            attendedClassesField.setText("");
+            requiredPercentageField.setText("75");
+            subjectField.requestFocus();
+        });
+        fileMenu.add(resetMenu);
+        fileMenu.addSeparator();
         fileMenu.add(exitMenu);
 
         JMenu viewMenu = new JMenu("View");
