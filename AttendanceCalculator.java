@@ -569,6 +569,10 @@ public class AttendanceCalculator extends JFrame {
         tableContextMenu.addSeparator();
         tableContextMenu.add(ctxExport);
         tableContextMenu.add(ctxCopy);
+        JMenuItem ctxPrint = new JMenuItem("Print Table");
+        ctxPrint.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        ctxPrint.addActionListener(e -> printAttendanceTable());
+        tableContextMenu.add(ctxPrint);
         subjectTable.setComponentPopupMenu(tableContextMenu);
 
         // Filter/search panel
