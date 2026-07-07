@@ -198,6 +198,8 @@ public class AttendanceCalculator extends JFrame {
         statsItem.addActionListener(e -> showStatisticsChart());
         viewMenu.add(statsItem);
 
+        viewMenu.addSeparator();
+
         inputMap.put(KeyStroke.getKeyStroke("UP"), "prevField");
         actionMap.put("prevField", new AbstractAction() {
             @Override
