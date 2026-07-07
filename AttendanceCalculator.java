@@ -1038,6 +1038,7 @@ public class AttendanceCalculator extends JFrame {
         }
         StringBuilder sb = new StringBuilder();
         sb.append("=== Weekly Attendance Summary ===\n");
+        sb.append("App: Attendance Calculator Pro v" + APP_VERSION + "\n");
         sb.append("Date: ").append(java.time.LocalDate.now()).append("\n\n");
         double totalPct = 0;
         int count = 0;
