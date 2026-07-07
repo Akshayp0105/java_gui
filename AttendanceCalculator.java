@@ -24,7 +24,7 @@ public class AttendanceCalculator extends JFrame {
     private java.util.Map<String, java.util.List<Double>> attendanceHistory = new java.util.HashMap<>();
 
     public AttendanceCalculator() {
-        setTitle("Attendance Calculator Pro v" + APP_VERSION);
+        setTitle("Attendance Calculator Pro v" + APP_VERSION + " - " + java.time.LocalDate.now());
         setSize(900, 600);
         setMinimumSize(new Dimension(700, 450));
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
