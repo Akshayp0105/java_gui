@@ -157,6 +157,7 @@ public class AttendanceCalculator extends JFrame {
                     if (goal >= 0 && goal <= 100) {
                         StringBuilder sb = new StringBuilder();
                         sb.append("=== Attendance Goal Tracker ===\n");
+                        sb.append("App: v" + APP_VERSION + "\n");
                         sb.append("Target: ").append(String.format("%.0f%%", goal)).append("\n\n");
                         int count = 0, onTrack = 0;
                         for (int i = 0; i < tableModel.getRowCount(); i++) {
