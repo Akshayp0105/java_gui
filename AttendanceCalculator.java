@@ -236,6 +236,8 @@ public class AttendanceCalculator extends JFrame {
         helpContentMenu.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         helpContentMenu.addActionListener(e -> JOptionPane.showMessageDialog(this, "Keyboard Shortcuts:\n"
                 + "Ctrl+S - Save | Ctrl+L - Load | Ctrl+E - Export | Ctrl+A - Select All\n"
+                + "Ctrl+Z - Undo | Ctrl+D - Duplicate | Ctrl+R - Reset | Ctrl+P - Print\n"
+                + "Ctrl+N - New Subject | Delete - Remove Row | F1 - Help\n"
                 + "Enter - Calculate | Click table headers to sort | Use Search field to filter\n\n"
                 + "How to use:\n"
                 + "1. Enter subject name, total classes, attended classes, and required percentage.\n"
