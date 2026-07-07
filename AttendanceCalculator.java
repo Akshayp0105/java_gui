@@ -574,6 +574,7 @@ public class AttendanceCalculator extends JFrame {
         filterPanel.add(new JLabel("Search:"));
         JTextField searchField = new JTextField(20);
         searchField.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        searchField.setToolTipText("Type to filter subjects in the table");
         filterPanel.add(searchField);
         searchField.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
             private void filter() {
