@@ -542,10 +542,31 @@ public class AttendanceCalculator extends JFrame {
         JMenuItem ctxExport = new JMenuItem("Export as CSV");
         ctxExport.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         ctxExport.addActionListener(e -> exportCSV());
+        JMenuItem ctxCopy = new JMenuItem("Copy Table Data");
+        ctxCopy.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        ctxCopy.addActionListener(e -> {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < tableModel.getColumnCount(); i++) {
+                sb.append(tableModel.getColumnName(i));
+                if (i < tableModel.getColumnCount() - 1) sb.append("\t");
+            }
+            sb.append("\n");
+            for (int i = 0; i < tableModel.getRowCount(); i++) {
+                for (int j = 0; j < tableModel.getColumnCount(); j++) {
+                    sb.append(tableModel.getValueAt(i, j));
+                    if (j < tableModel.getColumnCount() - 1) sb.append("\t");
+                }
+                sb.append("\n");
+            }
+            java.awt.datatransfer.StringSelection sel = new java.awt.datatransfer.StringSelection(sb.toString());
+            java.awt.Toolkit.getDefaultToolkit().getSystemClipboard().setContents(sel, null);
+            JOptionPane.showMessageDialog(null, "Table data copied to clipboard!", "Copy", JOptionPane.INFORMATION_MESSAGE);
+        });
         tableContextMenu.add(ctxDelete);
         tableContextMenu.add(ctxClearAll);
         tableContextMenu.addSeparator();
         tableContextMenu.add(ctxExport);
+        tableContextMenu.add(ctxCopy);
         subjectTable.setComponentPopupMenu(tableContextMenu);
 
         // Filter/search panel
