@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Stack;
 
 public class AttendanceCalculator extends JFrame {
-    private static final String APP_VERSION = "2.1.0";
+    private static final String APP_VERSION = "2.2.0";
     private JTextField subjectField;
     private JTextField totalClassesField;
     private JTextField attendedClassesField;
