@@ -567,6 +567,10 @@ public class AttendanceCalculator extends JFrame {
         });
         tableContextMenu.add(ctxDelete);
         tableContextMenu.add(ctxClearAll);
+        JMenuItem ctxSelectAll = new JMenuItem("Select All Rows");
+        ctxSelectAll.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        ctxSelectAll.addActionListener(e -> subjectTable.selectAll());
+        tableContextMenu.add(ctxSelectAll);
         tableContextMenu.addSeparator();
         tableContextMenu.add(ctxExport);
         tableContextMenu.add(ctxCopy);
