@@ -199,6 +199,10 @@ public class AttendanceCalculator extends JFrame {
         viewMenu.add(statsItem);
 
         viewMenu.addSeparator();
+        JMenuItem refreshItem = new JMenuItem("Refresh Table");
+        refreshItem.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        refreshItem.addActionListener(e -> updateOverallAttendance());
+        viewMenu.add(refreshItem);
 
         inputMap.put(KeyStroke.getKeyStroke("UP"), "prevField");
         actionMap.put("prevField", new AbstractAction() {
