@@ -339,7 +339,8 @@ public class AttendanceCalculator extends JFrame {
             public void actionPerformed(java.awt.event.ActionEvent e) {
                 JOptionPane.showMessageDialog(null, "Keyboard Shortcuts:\n"
                         + "Ctrl+S - Save | Ctrl+L - Load | Ctrl+E - Export | Ctrl+A - Select All\n"
-                        + "Ctrl+R - Reset Fields | Ctrl+N - New Subject | F1 - Help | Delete - Remove Row\n"
+                        + "Ctrl+Z - Undo | Ctrl+D - Duplicate | Ctrl+R - Reset | Ctrl+P - Print\n"
+                        + "Ctrl+N - New Subject | Delete - Remove Row | F1 - Help\n"
                         + "Enter - Calculate | Click table headers to sort | Use Search field to filter\n\n"
                         + "How to use:\n"
                         + "1. Enter subject name, total classes, attended classes, and required percentage.\n"
@@ -347,7 +348,7 @@ public class AttendanceCalculator extends JFrame {
                         + "3. Status column shows if you're safe or need more classes.\n"
                         + "4. Use File menu to save/load or export/import data.\n"
                         + "5. Toggle Dark Mode from View menu.\n"
-                        + "6. Use Search field to filter subjects in the table.", "Help - Attendance Calculator Pro", JOptionPane.INFORMATION_MESSAGE);
+                        + "6. Use Search field to filter subjects in the table.", "Help - Attendance Calculator Pro v" + APP_VERSION, JOptionPane.INFORMATION_MESSAGE);
             }
         });
         inputMap.put(KeyStroke.getKeyStroke("control N"), "newSubject");
