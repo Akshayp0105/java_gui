@@ -231,7 +231,7 @@ public class AttendanceCalculator extends JFrame {
         helpMenu.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         JMenuItem aboutMenu = new JMenuItem("About");
         aboutMenu.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-        aboutMenu.addActionListener(e -> JOptionPane.showMessageDialog(this, "Attendance Calculator Pro v" + APP_VERSION + "\nMade by LOQ", "About", JOptionPane.INFORMATION_MESSAGE));
+        aboutMenu.addActionListener(e -> JOptionPane.showMessageDialog(this, "Attendance Calculator Pro v" + APP_VERSION + "\nMade by LOQ\n\nJava Swing Application\nBuilt for Students", "About", JOptionPane.INFORMATION_MESSAGE));
         JMenuItem helpContentMenu = new JMenuItem("Help");
         helpContentMenu.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         helpContentMenu.addActionListener(e -> JOptionPane.showMessageDialog(this, "Keyboard Shortcuts:\n"
