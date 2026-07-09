@@ -22,6 +22,8 @@ A Java Swing-based attendance tracking application for students.
 
 ## Keyboard Shortcuts
 
+Press F1 at any time to view all available shortcuts.
+
 | Shortcut | Action |
 |----------|--------|
 | Ctrl+S | Save data |
