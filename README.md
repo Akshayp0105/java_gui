@@ -8,6 +8,7 @@ A Java Swing-based attendance tracking application for students.
 - Version tracking with v2.2.0
 - See if you're safe or need more classes to meet requirements
 - Color-coded rows (green = safe, red = alert)
+- Green for 90%+, light green for 75%+, yellow for warning, orange for danger, red below 50%
 - Overall attendance summary with min/max/average stats
 - Search and filter subjects in the table
 - Table column sorting by clicking headers
