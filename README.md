@@ -43,6 +43,7 @@ A Java Swing-based attendance tracking application for students.
 | Enter | Calculate & Add subject |
 | Tab | Move to next field |
 | Delete | Remove selected row |
+| Escape | Close dialog |
 | F1 | Show help dialog |
 
 ## File Operations
