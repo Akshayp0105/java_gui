@@ -56,7 +56,7 @@ A Java Swing-based attendance tracking application for students.
 
 ## How to Use
 
-1. Enter subject name, total classes, attended classes, and required percentage
+1. Enter subject name, total classes, attended classes, and required percentage (all fields validated)
 2. Click **Calculate & Add** or press **Enter** to add to the table
 3. Status column shows if you're safe or need more classes
 4. Use File menu to save, load, export, or import data
