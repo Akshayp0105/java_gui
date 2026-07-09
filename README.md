@@ -29,6 +29,7 @@ A Java Swing-based attendance tracking application for students.
 | Ctrl+L | Load data |
 | Ctrl+F | Find/Search |
 | Ctrl+E | Export as CSV |
+| Ctrl+I | Import from CSV |
 | Ctrl+A | Select all rows |
 | Ctrl+Z | Undo last action |
 | Ctrl+D | Duplicate selected row |
