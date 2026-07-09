@@ -63,6 +63,6 @@ A Java Swing-based attendance tracking application for students.
 5. Toggle **Dark Mode** from the View menu (full UI theme)
 6. Use the **Search** field to filter subjects in the table (case-insensitive)
 
-## Requirements
+## System Requirements
 
 - Java JDK 8 or higher
