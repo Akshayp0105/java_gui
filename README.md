@@ -41,6 +41,7 @@ A Java Swing-based attendance tracking application for students.
 | Ctrl+N | New subject (clear fields) |
 | Ctrl+P | Print table |
 | Enter | Calculate & Add subject |
+| Tab | Move to next field |
 | Delete | Remove selected row |
 | F1 | Show help dialog |
 
