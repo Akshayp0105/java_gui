@@ -49,7 +49,7 @@ A Java Swing-based attendance tracking application for students.
 
 ## File Operations
 
-- **Save**: Save current data to database file
+- **Save**: Save current data to database file (auto-creates backup)
 - **Load**: Load previously saved data
 - **Export as CSV**: Export table data to CSV file
 - **Import from CSV**: Import subjects from a CSV file
