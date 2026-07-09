@@ -45,6 +45,7 @@ A Java Swing-based attendance tracking application for students.
 | Delete | Remove selected row |
 | Escape | Close dialog |
 | F1 | Show help dialog |
+| F5 | Refresh table |
 
 ## File Operations
 
