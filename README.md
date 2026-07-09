@@ -33,6 +33,7 @@ A Java Swing-based attendance tracking application for students.
 | Ctrl+A | Select all rows |
 | Ctrl+Shift+A | Deselect all |
 | Ctrl+Z | Undo last action |
+| Ctrl+Shift+Z | Redo |
 | Ctrl+D | Duplicate selected row |
 | Ctrl+R | Reset input fields |
 | Ctrl+N | New subject (clear fields) |
