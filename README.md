@@ -5,6 +5,7 @@ A Java Swing-based attendance tracking application for students.
 ## Features
 
 - Calculate and track attendance for multiple subjects
+- Version tracking with v2.2.0
 - See if you're safe or need more classes to meet requirements
 - Color-coded rows (green = safe, red = alert)
 - Overall attendance summary with min/max/average stats
