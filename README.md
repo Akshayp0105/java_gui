@@ -14,6 +14,7 @@ A Java Swing-based attendance tracking application for students.
 - Search and filter subjects in the table
 - Real-time filtering as you type
 - Table column sorting by clicking headers
+- Sort by name, attendance percentage, or status
 - Dark mode toggle
 - Live date/time status bar
 
