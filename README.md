@@ -16,6 +16,7 @@ A Java Swing-based attendance tracking application for students.
 - Table column sorting by clicking headers
 - Sort by name, attendance percentage, or status
 - Dark mode toggle
+- Customizable theme colors
 - Live date/time status bar
 
 ## Keyboard Shortcuts
