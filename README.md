@@ -18,6 +18,7 @@ A Java Swing-based attendance tracking application for students.
 - Dark mode toggle
 - Customizable theme colors
 - Live date/time status bar
+- Auto-updating clock display
 
 ## Keyboard Shortcuts
 
