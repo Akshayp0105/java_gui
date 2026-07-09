@@ -71,3 +71,4 @@ All file operations include error handling and user feedback.
 
 - Java JDK 8 or higher
 - Windows/macOS/Linux compatible
+- No external dependencies required
