@@ -66,3 +66,4 @@ A Java Swing-based attendance tracking application for students.
 ## System Requirements
 
 - Java JDK 8 or higher
+- Windows/macOS/Linux compatible
