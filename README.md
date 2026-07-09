@@ -61,7 +61,7 @@ A Java Swing-based attendance tracking application for students.
 3. Status column shows if you're safe or need more classes (with class count)
 4. Use File menu to save, load, export, or import data (auto-save available)
 5. Toggle **Dark Mode** from the View menu (full UI theme)
-6. Use the **Search** field to filter subjects in the table
+6. Use the **Search** field to filter subjects in the table (case-insensitive)
 
 ## Requirements
 
