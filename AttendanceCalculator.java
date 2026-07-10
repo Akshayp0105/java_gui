@@ -730,6 +730,17 @@ public class AttendanceCalculator extends JFrame {
         ctxMoveBottom.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         ctxMoveBottom.addActionListener(e -> moveRowToTopOrBottom(false));
         tableContextMenu.add(ctxMoveBottom);
+        JMenuItem ctxCopyCell = new JMenuItem("Copy Cell Value");
+        ctxCopyCell.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        ctxCopyCell.addActionListener(e -> {
+            int row = subjectTable.getSelectedRow();
+            int col = subjectTable.getSelectedColumn();
+            if (row >= 0 && col >= 0) {
+                Object val = tableModel.getValueAt(subjectTable.convertRowIndexToModel(row), col);
+                java.awt.Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new java.awt.datatransfer.StringSelection(val.toString()), null);
+            }
+        });
+        tableContextMenu.add(ctxCopyCell);
         tableContextMenu.addSeparator();
         tableContextMenu.add(ctxExport);
         tableContextMenu.add(ctxCopy);
