@@ -341,10 +341,17 @@ public class AttendanceCalculator extends JFrame {
             }
         });
         inputMap.put(KeyStroke.getKeyStroke("control E"), "export");
+        inputMap.put(KeyStroke.getKeyStroke("control shift E"), "exportSummary");
         actionMap.put("export", new AbstractAction() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent e) {
                 exportCSV();
+            }
+        });
+        actionMap.put("exportSummary", new AbstractAction() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                exportSummaryReport();
             }
         });
         inputMap.put(KeyStroke.getKeyStroke("control R"), "resetFields");
