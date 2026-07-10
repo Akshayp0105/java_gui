@@ -234,6 +234,11 @@ public class AttendanceCalculator extends JFrame {
         sortByCategory.addActionListener(e -> subjectTable.getRowSorter().setSortKeys(java.util.List.of(new javax.swing.RowSorter.SortKey(7, javax.swing.SortOrder.ASCENDING))));
         viewMenu.add(sortByCategory);
 
+        JCheckBoxMenuItem alwaysOnTopItem = new JCheckBoxMenuItem("Always on Top", false);
+        alwaysOnTopItem.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        alwaysOnTopItem.addActionListener(e -> setAlwaysOnTop(alwaysOnTopItem.isSelected()));
+        viewMenu.add(alwaysOnTopItem);
+
         viewMenu.addSeparator();
         JMenu columnMenu = new JMenu("Show/Hide Columns");
         columnMenu.setFont(new Font("Segoe UI", Font.PLAIN, 13));
