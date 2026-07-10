@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Stack;
 
 public class AttendanceCalculator extends JFrame {
-    private static final String APP_VERSION = "2.2.0";
+    private static final String APP_VERSION = "2.3.0";
     private JTextField subjectField;
     private JTextField totalClassesField;
     private JTextField attendedClassesField;
@@ -16,7 +16,14 @@ public class AttendanceCalculator extends JFrame {
     private DefaultTableModel tableModel;
     private JTable subjectTable;
     private JLabel overallAttendanceLabel;
+    private JLabel rowCountLabel;
+    private JLabel lastModifiedLabel;
+    private JPanel bottomPanel;
+    private JProgressBar attendanceBar;
+    private JComboBox<String> categoryCombo;
     private JCheckBoxMenuItem autoSaveMenuItem;
+    private JCheckBoxMenuItem minimizeToTrayMenuItem;
+    private JPanel statusBar;
     private boolean autoSave = true;
     private boolean darkMode = false;
     private String databaseFile = "attendance_database.csv";
@@ -127,7 +134,7 @@ public class AttendanceCalculator extends JFrame {
         });
         viewMenu.add(darkModeMenuItem);
 
-        JCheckBoxMenuItem minimizeToTrayMenuItem = new JCheckBoxMenuItem("Minimize to System Tray", false);
+        minimizeToTrayMenuItem = new JCheckBoxMenuItem("Minimize to System Tray", false);
         minimizeToTrayMenuItem.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         viewMenu.add(minimizeToTrayMenuItem);
 
@@ -205,8 +212,8 @@ public class AttendanceCalculator extends JFrame {
         refreshItem.addActionListener(e -> updateOverallAttendance());
         viewMenu.add(refreshItem);
 
-        inputMap.put(KeyStroke.getKeyStroke("UP"), "prevField");
-        actionMap.put("prevField", new AbstractAction() {
+        rootPane.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("UP"), "prevField");
+        rootPane.getActionMap().put("prevField", new AbstractAction() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent e) {
                 Component focused = KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner();
@@ -215,8 +222,8 @@ public class AttendanceCalculator extends JFrame {
                 else if (focused == requiredPercentageField) attendedClassesField.requestFocus();
             }
         });
-        inputMap.put(KeyStroke.getKeyStroke("DOWN"), "nextField");
-        actionMap.put("nextField", new AbstractAction() {
+        rootPane.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("DOWN"), "nextField");
+        rootPane.getActionMap().put("nextField", new AbstractAction() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent e) {
                 Component focused = KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner();
@@ -417,7 +424,7 @@ public class AttendanceCalculator extends JFrame {
         catLabel.setFont(labelFont);
         gbc.gridx = 0; gbc.gridy = 2; inputPanel.add(catLabel, gbc);
         String[] categories = {"Core", "Elective", "Lab", "Theory", "Other"};
-        JComboBox<String> categoryCombo = new JComboBox<>(categories);
+        categoryCombo = new JComboBox<>(categories);
         categoryCombo.setFont(fieldFont);
         categoryCombo.setToolTipText("Select subject category for grouping");
         gbc.gridx = 1; gbc.gridy = 2; inputPanel.add(categoryCombo, gbc);
@@ -612,7 +619,7 @@ public class AttendanceCalculator extends JFrame {
         tableWrapper.add(scrollPane, BorderLayout.CENTER);
 
         // Bottom Panel for actions and summary
-        JPanel bottomPanel = new JPanel(new BorderLayout());
+        bottomPanel = new JPanel(new BorderLayout());
         bottomPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
 
         JPanel actionPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -657,7 +664,7 @@ public class AttendanceCalculator extends JFrame {
         overallAttendanceLabel.setFont(new Font("Segoe UI", Font.BOLD, 18));
         overallAttendanceLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 
-        JProgressBar attendanceBar = new JProgressBar(0, 100);
+        attendanceBar = new JProgressBar(0, 100);
         attendanceBar.setValue(0);
         attendanceBar.setStringPainted(true);
         attendanceBar.setFont(new Font("Segoe UI", Font.BOLD, 12));
@@ -690,17 +697,17 @@ public class AttendanceCalculator extends JFrame {
         add(mainContent, BorderLayout.CENTER);
 
         // Status bar
-        JPanel statusBar = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 2));
+        statusBar = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 2));
         statusBar.setBackground(new Color(52, 152, 219));
         JLabel versionLabel = new JLabel("v" + APP_VERSION);
         versionLabel.setForeground(Color.WHITE);
         versionLabel.setFont(new Font("Segoe UI", Font.BOLD, 12));
         statusBar.add(versionLabel);
-        JLabel rowCountLabel = new JLabel("Rows: 0");
+        rowCountLabel = new JLabel("Rows: 0");
         rowCountLabel.setForeground(Color.WHITE);
         rowCountLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         statusBar.add(rowCountLabel);
-        JLabel lastModifiedLabel = new JLabel("Last Modified: Never");
+        lastModifiedLabel = new JLabel("Last Modified: Never");
         lastModifiedLabel.setForeground(Color.WHITE);
         lastModifiedLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         statusBar.add(lastModifiedLabel);
@@ -803,6 +810,8 @@ public class AttendanceCalculator extends JFrame {
             }
         });
     }
+
+    private void applyDarkMode(boolean dark) {
         Color bg = dark ? new Color(43, 43, 43) : UIManager.getColor("Panel.background");
         Color fg = dark ? Color.WHITE : Color.BLACK;
         Color tableBg = dark ? new Color(55, 55, 55) : Color.WHITE;
@@ -817,10 +826,10 @@ public class AttendanceCalculator extends JFrame {
                 for (Component inner : ((JPanel) c).getComponents()) {
                     inner.setBackground(bg);
                     inner.setForeground(fg);
+                }
             }
         }
         rowCountLabel.setText("Rows: " + tableModel.getRowCount());
-    }
         subjectTable.setBackground(tableBg);
         subjectTable.setForeground(tableFg);
         subjectTable.getTableHeader().setBackground(headerBg);
