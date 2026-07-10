@@ -182,6 +182,7 @@ public class AttendanceCalculator extends JFrame {
 
         JMenuItem themeColorItem = new JMenuItem("Change Theme Color");
         themeColorItem.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        themeColorItem.setToolTipText("Customize header and status bar color");
         themeColorItem.addActionListener(e -> {
             Color chosen = JColorChooser.showDialog(this, "Choose Theme Color", new Color(52, 152, 219));
             if (chosen != null) {
