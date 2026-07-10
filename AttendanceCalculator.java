@@ -144,7 +144,15 @@ public class AttendanceCalculator extends JFrame {
         viewMenu.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         autoSaveMenuItem = new JCheckBoxMenuItem("Auto-save", autoSave);
         autoSaveMenuItem.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-        autoSaveMenuItem.addActionListener(e -> autoSave = autoSaveMenuItem.isSelected());
+        autoSaveMenuItem.addActionListener(e -> {
+            autoSave = autoSaveMenuItem.isSelected();
+            for (java.awt.Component c : statusBar.getComponents()) {
+                if (c instanceof JLabel && ((JLabel) c).getText().startsWith("Auto-Save:")) {
+                    ((JLabel) c).setText("Auto-Save: " + (autoSave ? "ON" : "OFF"));
+                    break;
+                }
+            }
+        });
         viewMenu.add(autoSaveMenuItem);
 
         JCheckBoxMenuItem darkModeMenuItem = new JCheckBoxMenuItem("Dark Mode", false);
@@ -982,6 +990,11 @@ public class AttendanceCalculator extends JFrame {
         undoSizeLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         undoSizeLabel.setToolTipText("Number of undo steps available");
         statusBar.add(undoSizeLabel);
+        JLabel autoSaveStatus = new JLabel("Auto-Save: ON");
+        autoSaveStatus.setForeground(Color.WHITE);
+        autoSaveStatus.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        autoSaveStatus.setToolTipText("Auto-save status");
+        statusBar.add(autoSaveStatus);
         add(statusBar, BorderLayout.SOUTH);
 
         javax.swing.Timer clockTimer = new javax.swing.Timer(1000, e -> {
