@@ -858,6 +858,16 @@ public class AttendanceCalculator extends JFrame {
         actionPanel.add(predictButton);
         actionPanel.add(moveUpButton);
         actionPanel.add(moveDownButton);
+        JButton selectAllBtn = new JButton("Select All");
+        selectAllBtn.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        selectAllBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        selectAllBtn.addActionListener(e -> subjectTable.selectAll());
+        actionPanel.add(selectAllBtn);
+        JButton deselectAllBtn = new JButton("Deselect All");
+        deselectAllBtn.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        deselectAllBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        deselectAllBtn.addActionListener(e -> subjectTable.clearSelection());
+        actionPanel.add(deselectAllBtn);
 
         JButton customPctButton = new JButton("Set Custom %");
         customPctButton.setBackground(new Color(211, 84, 0));
