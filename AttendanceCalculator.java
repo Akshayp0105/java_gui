@@ -607,6 +607,8 @@ public class AttendanceCalculator extends JFrame {
         });
         subjectTable.setSelectionBackground(new Color(189, 195, 199));
         subjectTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        subjectTable.setShowGrid(true);
+        subjectTable.setIntercellSpacing(new Dimension(1, 1));
         subjectTable.setToolTipText("Double-click cell to edit (Subject, Total, Attended)");
         subjectTable.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             @Override
