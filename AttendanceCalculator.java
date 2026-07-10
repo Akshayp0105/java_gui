@@ -1260,11 +1260,11 @@ public class AttendanceCalculator extends JFrame {
         }
 
         if (totalClassesAll == 0) {
-            overallAttendanceLabel.setText("Overall Attendance: 0.00% (0 / 0)");
+            overallAttendanceLabel.setText("No subjects added yet. Add subjects to see attendance summary.");
             overallAttendanceLabel.setForeground(Color.BLACK);
             if (statsLabel != null) statsLabel.setText("Subjects: 0 | Highest: 0% | Lowest: 0% | Avg: 0%");
             attendanceBar.setValue(0);
-            attendanceBar.setString("0%");
+            attendanceBar.setString("No Data");
         } else {
             double overallPercent = ((double) totalAttendedAll / totalClassesAll) * 100;
             overallAttendanceLabel.setText(String.format("Overall Attendance: %.2f%% (%d / %d)", overallPercent, totalAttendedAll, totalClassesAll));
