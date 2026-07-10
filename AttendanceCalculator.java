@@ -489,7 +489,7 @@ public class AttendanceCalculator extends JFrame {
         gbc.gridx = 0; gbc.gridy = 0; inputPanel.add(subLabel, gbc);
         subjectField = new JTextField(15);
         subjectField.setFont(fieldFont);
-        subjectField.setToolTipText("Enter the name of the subject");
+        subjectField.setToolTipText("Enter the name of the subject (max 40 chars)");
         gbc.gridx = 1; gbc.gridy = 0; inputPanel.add(subjectField, gbc);
 
         JLabel totLabel = new JLabel("Total Classes:");
@@ -497,7 +497,7 @@ public class AttendanceCalculator extends JFrame {
         gbc.gridx = 2; gbc.gridy = 0; inputPanel.add(totLabel, gbc);
         totalClassesField = new JTextField(10);
         totalClassesField.setFont(fieldFont);
-        totalClassesField.setToolTipText("Total number of classes held");
+        totalClassesField.setToolTipText("Total number of classes held (must be >= attended)");
         gbc.gridx = 3; gbc.gridy = 0; inputPanel.add(totalClassesField, gbc);
 
         JLabel attLabel = new JLabel("Attended Classes:");
