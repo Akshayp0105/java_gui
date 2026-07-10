@@ -387,6 +387,8 @@ public class AttendanceCalculator extends JFrame {
             }
         });
         inputMap.put(KeyStroke.getKeyStroke("DELETE"), "deleteRow");
+        inputMap.put(KeyStroke.getKeyStroke("control UP"), "moveUp");
+        inputMap.put(KeyStroke.getKeyStroke("control DOWN"), "moveDown");
         actionMap.put("deleteRow", new AbstractAction() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -396,6 +398,36 @@ public class AttendanceCalculator extends JFrame {
                     tableModel.removeRow(modelRow);
                     updateOverallAttendance();
                 }
+            }
+        });
+        actionMap.put("moveUp", new AbstractAction() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                int selectedRow = subjectTable.getSelectedRow();
+                if (selectedRow <= 0) return;
+                int modelRow = subjectTable.convertRowIndexToModel(selectedRow);
+                saveUndoState();
+                Object[] rowData = new Object[tableModel.getColumnCount()];
+                for (int j = 0; j < tableModel.getColumnCount(); j++) rowData[j] = tableModel.getValueAt(modelRow, j);
+                tableModel.removeRow(modelRow);
+                tableModel.insertRow(modelRow - 1, rowData);
+                subjectTable.setRowSelectionInterval(selectedRow - 1, selectedRow - 1);
+                updateOverallAttendance();
+            }
+        });
+        actionMap.put("moveDown", new AbstractAction() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                int selectedRow = subjectTable.getSelectedRow();
+                if (selectedRow < 0 || selectedRow >= subjectTable.getRowCount() - 1) return;
+                int modelRow = subjectTable.convertRowIndexToModel(selectedRow);
+                saveUndoState();
+                Object[] rowData = new Object[tableModel.getColumnCount()];
+                for (int j = 0; j < tableModel.getColumnCount(); j++) rowData[j] = tableModel.getValueAt(modelRow, j);
+                tableModel.removeRow(modelRow);
+                tableModel.insertRow(modelRow + 1, rowData);
+                subjectTable.setRowSelectionInterval(selectedRow + 1, selectedRow + 1);
+                updateOverallAttendance();
             }
         });
         inputMap.put(KeyStroke.getKeyStroke("control Z"), "undo");
