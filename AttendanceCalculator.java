@@ -876,7 +876,7 @@ public class AttendanceCalculator extends JFrame {
         versionLabel.setForeground(Color.WHITE);
         versionLabel.setFont(new Font("Segoe UI", Font.BOLD, 12));
         statusBar.add(versionLabel);
-        rowCountLabel = new JLabel("Rows: 0");
+        rowCountLabel = new JLabel("Subjects: 0");
         rowCountLabel.setForeground(Color.WHITE);
         rowCountLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         statusBar.add(rowCountLabel);
@@ -1064,7 +1064,7 @@ public class AttendanceCalculator extends JFrame {
                 }
             }
         }
-        rowCountLabel.setText("Rows: " + tableModel.getRowCount());
+        rowCountLabel.setText("Subjects: " + tableModel.getRowCount());
         subjectTable.setBackground(tableBg);
         subjectTable.setForeground(tableFg);
         subjectTable.getTableHeader().setBackground(headerBg);
@@ -1257,6 +1257,7 @@ public class AttendanceCalculator extends JFrame {
                 attendanceBar.setForeground(useMonochromeBar ? new Color(52, 152, 219) : new Color(39, 174, 96));
             }
         }
+        rowCountLabel.setText("Subjects: " + tableModel.getRowCount());
         updateStatusBarColor();
         updateOverallAttendanceTooltip();
     }
