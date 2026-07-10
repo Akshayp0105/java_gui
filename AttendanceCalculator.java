@@ -593,6 +593,7 @@ public class AttendanceCalculator extends JFrame {
         subjectTable.setRowSorter(new javax.swing.table.TableRowSorter<>(tableModel));
         subjectTable.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 14));
         subjectTable.getTableHeader().setBackground(new Color(236, 240, 241));
+        subjectTable.getTableHeader().setToolTipText("<html><b>Subject</b> - Name<br><b>Total</b> - Classes held<br><b>Attended</b> - Classes attended<br><b>Current %</b> - Current %<br><b>Required %</b> - Required %<br><b>Status</b> - Safe/Alert<br><b>Trend</b> - UP/DOWN<br><b>Category</b> - Type</html>");
 
         tableModel.addTableModelListener(e -> {
             if (e.getType() == javax.swing.event.TableModelEvent.UPDATE) {
