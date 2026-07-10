@@ -229,6 +229,11 @@ public class AttendanceCalculator extends JFrame {
         sortByStatus.addActionListener(e -> subjectTable.getRowSorter().setSortKeys(java.util.List.of(new javax.swing.RowSorter.SortKey(5, javax.swing.SortOrder.ASCENDING))));
         viewMenu.add(sortByStatus);
 
+        JMenuItem sortByCategory = new JMenuItem("Sort by Category");
+        sortByCategory.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        sortByCategory.addActionListener(e -> subjectTable.getRowSorter().setSortKeys(java.util.List.of(new javax.swing.RowSorter.SortKey(7, javax.swing.SortOrder.ASCENDING))));
+        viewMenu.add(sortByCategory);
+
         viewMenu.addSeparator();
         JMenu columnMenu = new JMenu("Show/Hide Columns");
         columnMenu.setFont(new Font("Segoe UI", Font.PLAIN, 13));
@@ -1125,6 +1130,7 @@ public class AttendanceCalculator extends JFrame {
                 JOptionPane.showMessageDialog(this, "Please enter valid positive numbers. Percentage must be between 0 and 100.", "Input Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
+
 
             if (attended > total) {
                 JOptionPane.showMessageDialog(this, "Attended classes cannot be greater than total classes.", "Input Error", JOptionPane.ERROR_MESSAGE);
