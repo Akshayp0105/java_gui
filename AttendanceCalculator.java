@@ -922,7 +922,7 @@ public class AttendanceCalculator extends JFrame {
         customPctButton.setFocusPainted(false);
         customPctButton.setFont(new Font("Segoe UI", Font.BOLD, 13));
         customPctButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        customPctButton.setToolTipText("Set custom required percentage for selected subject");
+        customPctButton.setToolTipText("Set custom required percentage for selected subject (e.g., 80, 85, 90)");
         actionPanel.add(customPctButton);
 
         overallAttendanceLabel = new JLabel("Overall Attendance: 0.00% (0 / 0)");
