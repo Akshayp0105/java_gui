@@ -813,12 +813,16 @@ public class AttendanceCalculator extends JFrame {
         filterPanel.add(searchField);
         filterPanel.add(new JLabel("Category:"));
         JComboBox<String> categoryFilter = new JComboBox<>(new String[]{"All", "Core", "Elective", "Lab", "Theory", "Other"});
+        JComboBox<String> statusFilter = new JComboBox<>(new String[]{"All Status", "Safe Only", "At Risk Only"});
         categoryFilter.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         categoryFilter.setToolTipText("Filter by subject category");
         filterPanel.add(categoryFilter);
+        statusFilter.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        statusFilter.setToolTipText("Filter by attendance status");
+        filterPanel.add(statusFilter);
         searchField.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
             private void filter() {
-                applyFilters(searchField.getText(), categoryFilter.getSelectedIndex());
+                applyFilters(searchField.getText(), categoryFilter.getSelectedIndex(), statusFilter.getSelectedIndex());
             }
             @Override public void insertUpdate(javax.swing.event.DocumentEvent e) { filter(); }
             @Override public void removeUpdate(javax.swing.event.DocumentEvent e) { filter(); }
@@ -830,11 +834,13 @@ public class AttendanceCalculator extends JFrame {
                 if (e.getKeyCode() == java.awt.event.KeyEvent.VK_ESCAPE) {
                     searchField.setText("");
                     categoryFilter.setSelectedIndex(0);
+                    statusFilter.setSelectedIndex(0);
                     subjectField.requestFocus();
                 }
             }
         });
-        categoryFilter.addActionListener(e -> applyFilters(searchField.getText(), categoryFilter.getSelectedIndex()));
+        categoryFilter.addActionListener(e -> applyFilters(searchField.getText(), categoryFilter.getSelectedIndex(), statusFilter.getSelectedIndex()));
+        statusFilter.addActionListener(e -> applyFilters(searchField.getText(), categoryFilter.getSelectedIndex(), statusFilter.getSelectedIndex()));
 
         JPanel tableWrapper = new JPanel(new BorderLayout());
         tableWrapper.add(filterPanel, BorderLayout.NORTH);
@@ -1718,10 +1724,10 @@ public class AttendanceCalculator extends JFrame {
         }
     }
 
-    private void applyFilters(String query, int categoryIndex) {
+    private void applyFilters(String query, int categoryIndex, int statusIndex) {
         javax.swing.table.TableRowSorter<DefaultTableModel> sorter = (javax.swing.table.TableRowSorter<DefaultTableModel>) subjectTable.getRowSorter();
         String categoryFilter = categoryIndex == 0 ? null : (String) categoryCombo.getItemAt(categoryIndex - 1);
-        if (query.isEmpty() && categoryFilter == null) {
+        if (query.isEmpty() && categoryFilter == null && statusIndex == 0) {
             sorter.setRowFilter(null);
         } else {
             String finalQuery = query.toLowerCase();
@@ -1730,7 +1736,10 @@ public class AttendanceCalculator extends JFrame {
                 public boolean include(javax.swing.RowFilter.Entry<? extends DefaultTableModel, ? extends Integer> entry) {
                     boolean matchesSearch = finalQuery.isEmpty() || entry.getStringValue(0).toLowerCase().contains(finalQuery);
                     boolean matchesCategory = categoryFilter == null || (entry.getValueCount() > 7 && categoryFilter.equals(entry.getStringValue(7)));
-                    return matchesSearch && matchesCategory;
+                    boolean matchesStatus = true;
+                    if (statusIndex == 1) matchesStatus = entry.getStringValue(5).startsWith("Safe") || entry.getStringValue(5).startsWith("On track");
+                    else if (statusIndex == 2) matchesStatus = entry.getStringValue(5).startsWith("Alert");
+                    return matchesSearch && matchesCategory && matchesStatus;
                 }
             });
         }
