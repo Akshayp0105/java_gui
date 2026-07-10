@@ -24,8 +24,11 @@ public class AttendanceCalculator extends JFrame {
     private JCheckBoxMenuItem autoSaveMenuItem;
     private JCheckBoxMenuItem minimizeToTrayMenuItem;
     private JPanel statusBar;
+    private JButton moveUpButton;
+    private JButton moveDownButton;
     private boolean autoSave = true;
     private boolean darkMode = false;
+    private boolean useMonochromeBar = false;
     private String databaseFile = "attendance_database.csv";
     private Stack<Object[][]> undoStack = new Stack<>();
     private java.util.Map<String, java.util.List<Double>> attendanceHistory = new java.util.HashMap<>();
@@ -63,7 +66,9 @@ public class AttendanceCalculator extends JFrame {
         // Header Panel
         JPanel headerPanel = new JPanel();
         headerPanel.setBackground(new Color(52, 152, 219));
-        JLabel titleLabel = new JLabel("Attendance Calculator Pro");
+        int hour = java.time.LocalTime.now().getHour();
+        String greeting = hour < 12 ? "Good Morning" : hour < 17 ? "Good Afternoon" : "Good Evening";
+        JLabel titleLabel = new JLabel(greeting + " - Attendance Calculator Pro");
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 24));
         titleLabel.setForeground(Color.WHITE);
         titleLabel.setToolTipText("Shortcuts: Ctrl+S Save | Ctrl+L Load | Ctrl+E Export | Ctrl+P Print | F1 Help");
@@ -86,6 +91,9 @@ public class AttendanceCalculator extends JFrame {
         JMenuItem importMenu = new JMenuItem("Import from CSV");
         importMenu.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         importMenu.addActionListener(e -> importCSV());
+        JMenuItem exportHtmlMenu = new JMenuItem("Export as HTML");
+        exportHtmlMenu.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        exportHtmlMenu.addActionListener(e -> exportHTML());
         JMenuItem exitMenu = new JMenuItem("Exit");
         exitMenu.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         exitMenu.addActionListener(e -> System.exit(0));
@@ -105,6 +113,15 @@ public class AttendanceCalculator extends JFrame {
         fileMenu.addSeparator();
         fileMenu.add(exportMenu);
         fileMenu.add(importMenu);
+        fileMenu.add(exportHtmlMenu);
+        JMenuItem summaryReportMenu = new JMenuItem("Export Summary Report");
+        summaryReportMenu.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        summaryReportMenu.addActionListener(e -> exportSummaryReport());
+        fileMenu.add(summaryReportMenu);
+        JMenuItem restoreBackupMenu = new JMenuItem("Restore from Backup");
+        restoreBackupMenu.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        restoreBackupMenu.addActionListener(e -> restoreFromBackup());
+        fileMenu.add(restoreBackupMenu);
         fileMenu.addSeparator();
         JMenuItem resetMenu = new JMenuItem("Reset Fields");
         resetMenu.setFont(new Font("Segoe UI", Font.PLAIN, 13));
@@ -133,6 +150,14 @@ public class AttendanceCalculator extends JFrame {
             applyDarkMode(darkMode);
         });
         viewMenu.add(darkModeMenuItem);
+
+        JCheckBoxMenuItem monoBarItem = new JCheckBoxMenuItem("Monochrome Progress Bar", false);
+        monoBarItem.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        monoBarItem.addActionListener(e -> {
+            useMonochromeBar = monoBarItem.isSelected();
+            updateOverallAttendance();
+        });
+        viewMenu.add(monoBarItem);
 
         minimizeToTrayMenuItem = new JCheckBoxMenuItem("Minimize to System Tray", false);
         minimizeToTrayMenuItem.setFont(new Font("Segoe UI", Font.PLAIN, 13));
@@ -201,6 +226,28 @@ public class AttendanceCalculator extends JFrame {
         viewMenu.add(sortByStatus);
 
         viewMenu.addSeparator();
+        JMenu columnMenu = new JMenu("Show/Hide Columns");
+        columnMenu.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        for (int ci = 0; ci < subjectTable.getColumnCount(); ci++) {
+            final int colIndex = ci;
+            String colName = subjectTable.getColumnModel().getColumn(ci).getHeaderValue().toString();
+            JCheckBoxMenuItem colItem = new JCheckBoxMenuItem(colName, true);
+            colItem.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+            colItem.addActionListener(ev -> {
+                if (colItem.isSelected()) {
+                    subjectTable.getColumnModel().getColumn(colIndex).setMinWidth(15);
+                    subjectTable.getColumnModel().getColumn(colIndex).setMaxWidth(500);
+                    subjectTable.getColumnModel().getColumn(colIndex).setPreferredWidth(100);
+                } else {
+                    subjectTable.getColumnModel().getColumn(colIndex).setMinWidth(0);
+                    subjectTable.getColumnModel().getColumn(colIndex).setMaxWidth(0);
+                    subjectTable.getColumnModel().getColumn(colIndex).setPreferredWidth(0);
+                }
+            });
+            columnMenu.add(colItem);
+        }
+        viewMenu.add(columnMenu);
+        viewMenu.addSeparator();
         JMenuItem statsItem = new JMenuItem("Show Statistics Chart");
         statsItem.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         statsItem.addActionListener(e -> showStatisticsChart());
@@ -266,10 +313,17 @@ public class AttendanceCalculator extends JFrame {
         InputMap inputMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         ActionMap actionMap = rootPane.getActionMap();
         inputMap.put(KeyStroke.getKeyStroke("control S"), "save");
+        inputMap.put(KeyStroke.getKeyStroke("control shift S"), "saveAs");
         actionMap.put("save", new AbstractAction() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent e) {
                 saveData();
+            }
+        });
+        actionMap.put("saveAs", new AbstractAction() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                exportCSV();
             }
         });
         inputMap.put(KeyStroke.getKeyStroke("control L"), "load");
@@ -317,10 +371,24 @@ public class AttendanceCalculator extends JFrame {
             }
         });
         inputMap.put(KeyStroke.getKeyStroke("control Z"), "undo");
+        inputMap.put(KeyStroke.getKeyStroke("control shift UP"), "moveTop");
         actionMap.put("undo", new AbstractAction() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent e) {
                 undoLastAction();
+            }
+        });
+        inputMap.put(KeyStroke.getKeyStroke("control shift DOWN"), "moveBottom");
+        actionMap.put("moveTop", new AbstractAction() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                moveRowToTopOrBottom(true);
+            }
+        });
+        actionMap.put("moveBottom", new AbstractAction() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                moveRowToTopOrBottom(false);
             }
         });
         inputMap.put(KeyStroke.getKeyStroke("control D"), "duplicateRow");
@@ -371,10 +439,31 @@ public class AttendanceCalculator extends JFrame {
             }
         });
         inputMap.put(KeyStroke.getKeyStroke("control P"), "printTable");
+        inputMap.put(KeyStroke.getKeyStroke("F5"), "refreshTable");
+        inputMap.put(KeyStroke.getKeyStroke("F2"), "renameSubject");
         actionMap.put("printTable", new AbstractAction() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent e) {
                 printAttendanceTable();
+            }
+        });
+        actionMap.put("refreshTable", new AbstractAction() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                updateOverallAttendance();
+            }
+        });
+        actionMap.put("renameSubject", new AbstractAction() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                int selectedRow = subjectTable.getSelectedRow();
+                if (selectedRow == -1) return;
+                int modelRow = subjectTable.convertRowIndexToModel(selectedRow);
+                String currentName = (String) tableModel.getValueAt(modelRow, 0);
+                String newName = JOptionPane.showInputDialog(AttendanceCalculator.this, "Rename subject:", currentName);
+                if (newName != null && !newName.trim().isEmpty()) {
+                    tableModel.setValueAt(newName.trim(), modelRow, 0);
+                }
             }
         });
 
@@ -426,7 +515,20 @@ public class AttendanceCalculator extends JFrame {
         String[] categories = {"Core", "Elective", "Lab", "Theory", "Other"};
         categoryCombo = new JComboBox<>(categories);
         categoryCombo.setFont(fieldFont);
-        categoryCombo.setToolTipText("Select subject category for grouping");
+        categoryCombo.setToolTipText("Select subject category for grouping (Alt+1-5)");
+        categoryCombo.setSelectedIndex(0);
+        for (int k = 1; k <= 5; k++) {
+            final int index = k - 1;
+            rootPane.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("alt " + k), "cat" + k);
+            rootPane.getActionMap().put("cat" + k, new AbstractAction() {
+                @Override
+                public void actionPerformed(java.awt.event.ActionEvent e) {
+                    if (index < categoryCombo.getItemCount()) {
+                        categoryCombo.setSelectedIndex(index);
+                    }
+                }
+            });
+        }
         gbc.gridx = 1; gbc.gridy = 2; inputPanel.add(categoryCombo, gbc);
 
         // Enter key triggers calculate
@@ -497,6 +599,18 @@ public class AttendanceCalculator extends JFrame {
             }
         });
         subjectTable.setSelectionBackground(new Color(189, 195, 199));
+        subjectTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        subjectTable.setToolTipText("");
+        subjectTable.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            @Override
+            public void mouseMoved(java.awt.event.MouseEvent e) {
+                int row = subjectTable.rowAtPoint(e.getPoint());
+                int col = subjectTable.columnAtPoint(e.getPoint());
+                if (row >= 0 && col >= 0) {
+                    subjectTable.setToolTipText("<html><b>" + tableModel.getColumnName(col) + ":</b> " + tableModel.getValueAt(subjectTable.convertRowIndexToModel(row), col) + "</html>");
+                }
+            }
+        });
 
         // Custom renderer for row colors based on attendance percentage
         subjectTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
@@ -530,6 +644,21 @@ public class AttendanceCalculator extends JFrame {
         scrollPane.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY), "Subject Details", 0, 0, new Font("Segoe UI", Font.BOLD, 12)));
 
         JPopupMenu tableContextMenu = new JPopupMenu();
+        JMenuItem ctxRename = new JMenuItem("Rename Subject");
+        ctxRename.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        ctxRename.addActionListener(e -> {
+            int selectedRow = subjectTable.getSelectedRow();
+            if (selectedRow == -1) {
+                JOptionPane.showMessageDialog(this, "Please select a row to rename.", "Rename", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            int modelRow = subjectTable.convertRowIndexToModel(selectedRow);
+            String currentName = (String) tableModel.getValueAt(modelRow, 0);
+            String newName = JOptionPane.showInputDialog(this, "Enter new subject name:", currentName);
+            if (newName != null && !newName.trim().isEmpty()) {
+                tableModel.setValueAt(newName.trim(), modelRow, 0);
+            }
+        });
         JMenuItem ctxDelete = new JMenuItem("Delete Selected Row");
         ctxDelete.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         ctxDelete.addActionListener(e -> {
@@ -573,6 +702,7 @@ public class AttendanceCalculator extends JFrame {
             java.awt.Toolkit.getDefaultToolkit().getSystemClipboard().setContents(sel, null);
             JOptionPane.showMessageDialog(null, "Table data copied to clipboard!", "Copy", JOptionPane.INFORMATION_MESSAGE);
         });
+        tableContextMenu.add(ctxRename);
         tableContextMenu.add(ctxDelete);
         tableContextMenu.add(ctxClearAll);
         JMenuItem ctxSelectAll = new JMenuItem("Select All Rows");
@@ -583,6 +713,14 @@ public class AttendanceCalculator extends JFrame {
         ctxDeselectAll.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         ctxDeselectAll.addActionListener(e -> subjectTable.clearSelection());
         tableContextMenu.add(ctxDeselectAll);
+        JMenuItem ctxMoveTop = new JMenuItem("Move to Top");
+        ctxMoveTop.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        ctxMoveTop.addActionListener(e -> moveRowToTopOrBottom(true));
+        tableContextMenu.add(ctxMoveTop);
+        JMenuItem ctxMoveBottom = new JMenuItem("Move to Bottom");
+        ctxMoveBottom.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        ctxMoveBottom.addActionListener(e -> moveRowToTopOrBottom(false));
+        tableContextMenu.add(ctxMoveBottom);
         tableContextMenu.addSeparator();
         tableContextMenu.add(ctxExport);
         tableContextMenu.add(ctxCopy);
@@ -599,20 +737,30 @@ public class AttendanceCalculator extends JFrame {
         searchField.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         searchField.setToolTipText("Type to filter subjects in the table");
         filterPanel.add(searchField);
+        filterPanel.add(new JLabel("Category:"));
+        JComboBox<String> categoryFilter = new JComboBox<>(new String[]{"All", "Core", "Elective", "Lab", "Theory", "Other"});
+        categoryFilter.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        categoryFilter.setToolTipText("Filter by subject category");
+        filterPanel.add(categoryFilter);
         searchField.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
             private void filter() {
-                String query = searchField.getText().trim().toLowerCase();
-                javax.swing.table.TableRowSorter<DefaultTableModel> sorter = (javax.swing.table.TableRowSorter<DefaultTableModel>) subjectTable.getRowSorter();
-                if (query.isEmpty()) {
-                    sorter.setRowFilter(null);
-                } else {
-                    sorter.setRowFilter(javax.swing.RowFilter.regexFilter("(?i)" + query));
-                }
+                applyFilters(searchField.getText(), categoryFilter.getSelectedIndex());
             }
             @Override public void insertUpdate(javax.swing.event.DocumentEvent e) { filter(); }
             @Override public void removeUpdate(javax.swing.event.DocumentEvent e) { filter(); }
             @Override public void changedUpdate(javax.swing.event.DocumentEvent e) { filter(); }
         });
+        searchField.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
+            public void keyPressed(java.awt.event.KeyEvent e) {
+                if (e.getKeyCode() == java.awt.event.KeyEvent.VK_ESCAPE) {
+                    searchField.setText("");
+                    categoryFilter.setSelectedIndex(0);
+                    subjectField.requestFocus();
+                }
+            }
+        });
+        categoryFilter.addActionListener(e -> applyFilters(searchField.getText(), categoryFilter.getSelectedIndex()));
 
         JPanel tableWrapper = new JPanel(new BorderLayout());
         tableWrapper.add(filterPanel, BorderLayout.NORTH);
@@ -647,9 +795,27 @@ public class AttendanceCalculator extends JFrame {
         predictButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         predictButton.setToolTipText("Predict attendance after N more classes");
 
+        moveUpButton = new JButton("Move Up");
+        moveUpButton.setBackground(new Color(52, 152, 219));
+        moveUpButton.setForeground(Color.WHITE);
+        moveUpButton.setFocusPainted(false);
+        moveUpButton.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        moveUpButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        moveUpButton.setToolTipText("Move selected row up");
+
+        moveDownButton = new JButton("Move Down");
+        moveDownButton.setBackground(new Color(52, 152, 219));
+        moveDownButton.setForeground(Color.WHITE);
+        moveDownButton.setFocusPainted(false);
+        moveDownButton.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        moveDownButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        moveDownButton.setToolTipText("Move selected row down");
+
         actionPanel.add(deleteButton);
         actionPanel.add(clearButton);
         actionPanel.add(predictButton);
+        actionPanel.add(moveUpButton);
+        actionPanel.add(moveDownButton);
 
         JButton customPctButton = new JButton("Set Custom %");
         customPctButton.setBackground(new Color(211, 84, 0));
@@ -711,10 +877,20 @@ public class AttendanceCalculator extends JFrame {
         lastModifiedLabel.setForeground(Color.WHITE);
         lastModifiedLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         statusBar.add(lastModifiedLabel);
+        JLabel backupLabel = new JLabel("Backup: None");
+        backupLabel.setForeground(Color.WHITE);
+        backupLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        backupLabel.setToolTipText("Last backup file timestamp");
+        statusBar.add(backupLabel);
         JLabel statusTimeLabel = new JLabel();
         statusTimeLabel.setForeground(Color.WHITE);
         statusTimeLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         statusBar.add(statusTimeLabel);
+        JLabel undoSizeLabel = new JLabel("Undo: 0");
+        undoSizeLabel.setForeground(Color.WHITE);
+        undoSizeLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        undoSizeLabel.setToolTipText("Number of undo steps available");
+        statusBar.add(undoSizeLabel);
         add(statusBar, BorderLayout.SOUTH);
 
         javax.swing.Timer clockTimer = new javax.swing.Timer(1000, e -> {
@@ -727,16 +903,23 @@ public class AttendanceCalculator extends JFrame {
         calculateButton.addActionListener(e -> calculateAndAdd());
         
         deleteButton.addActionListener(e -> {
-            int selectedRow = subjectTable.getSelectedRow();
-            if (selectedRow != -1) {
-                int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this row?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
-                if (confirm == JOptionPane.YES_OPTION) {
-                    int modelRow = subjectTable.convertRowIndexToModel(selectedRow);
-                    tableModel.removeRow(modelRow);
-                    updateOverallAttendance();
+            int[] selectedRows = subjectTable.getSelectedRows();
+            if (selectedRows.length == 0) {
+                JOptionPane.showMessageDialog(this, "Please select at least one row to delete.", "Delete Error", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete " + selectedRows.length + " row(s)?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+                saveUndoState();
+                int[] modelRows = new int[selectedRows.length];
+                for (int i = 0; i < selectedRows.length; i++) {
+                    modelRows[i] = subjectTable.convertRowIndexToModel(selectedRows[i]);
                 }
-            } else {
-                JOptionPane.showMessageDialog(this, "Please select a row to delete.", "Delete Error", JOptionPane.WARNING_MESSAGE);
+                java.util.Arrays.sort(modelRows);
+                for (int i = modelRows.length - 1; i >= 0; i--) {
+                    tableModel.removeRow(modelRows[i]);
+                }
+                updateOverallAttendance();
             }
         });
 
@@ -809,6 +992,51 @@ public class AttendanceCalculator extends JFrame {
                 JOptionPane.showMessageDialog(this, "Please enter a valid number.", "Custom % Error", JOptionPane.ERROR_MESSAGE);
             }
         });
+        moveUpButton.addActionListener(e -> {
+            int selectedRow = subjectTable.getSelectedRow();
+            if (selectedRow <= 0) return;
+            int modelRow = subjectTable.convertRowIndexToModel(selectedRow);
+            saveUndoState();
+            Object[] rowData = new Object[tableModel.getColumnCount()];
+            for (int j = 0; j < tableModel.getColumnCount(); j++) {
+                rowData[j] = tableModel.getValueAt(modelRow, j);
+            }
+            tableModel.removeRow(modelRow);
+            tableModel.insertRow(modelRow - 1, rowData);
+            subjectTable.setRowSelectionInterval(selectedRow - 1, selectedRow - 1);
+            updateOverallAttendance();
+        });
+        moveDownButton.addActionListener(e -> {
+            int selectedRow = subjectTable.getSelectedRow();
+            if (selectedRow < 0 || selectedRow >= subjectTable.getRowCount() - 1) return;
+            int modelRow = subjectTable.convertRowIndexToModel(selectedRow);
+            saveUndoState();
+            Object[] rowData = new Object[tableModel.getColumnCount()];
+            for (int j = 0; j < tableModel.getColumnCount(); j++) {
+                rowData[j] = tableModel.getValueAt(modelRow, j);
+            }
+            tableModel.removeRow(modelRow);
+            tableModel.insertRow(modelRow + 1, rowData);
+            subjectTable.setRowSelectionInterval(selectedRow + 1, selectedRow + 1);
+            updateOverallAttendance();
+        });
+    }
+
+    private void moveRowToTopOrBottom(boolean toTop) {
+        int selectedRow = subjectTable.getSelectedRow();
+        if (selectedRow < 0) return;
+        int modelRow = subjectTable.convertRowIndexToModel(selectedRow);
+        saveUndoState();
+        Object[] rowData = new Object[tableModel.getColumnCount()];
+        for (int j = 0; j < tableModel.getColumnCount(); j++) {
+            rowData[j] = tableModel.getValueAt(modelRow, j);
+        }
+        tableModel.removeRow(modelRow);
+        int targetRow = toTop ? 0 : tableModel.getRowCount();
+        tableModel.insertRow(targetRow, rowData);
+        int newViewRow = subjectTable.convertRowIndexToView(targetRow);
+        subjectTable.setRowSelectionInterval(newViewRow, newViewRow);
+        updateOverallAttendance();
     }
 
     private void applyDarkMode(boolean dark) {
@@ -845,6 +1073,12 @@ public class AttendanceCalculator extends JFrame {
             if (subject.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Please enter a subject name.", "Input Error", JOptionPane.ERROR_MESSAGE);
                 return;
+            }
+            if (subject.length() > 40) {
+                int confirm = JOptionPane.showConfirmDialog(this, "Subject name is very long (" + subject.length() + " chars). Truncate to 40 characters?", "Long Name", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                if (confirm == JOptionPane.YES_OPTION) {
+                    subject = subject.substring(0, 40);
+                }
             }
 
             boolean duplicate = false;
@@ -928,6 +1162,40 @@ public class AttendanceCalculator extends JFrame {
         }
     }
 
+    private void updateStatusBarColor() {
+        int totalClassesAll = 0;
+        int totalAttendedAll = 0;
+        for (int i = 0; i < tableModel.getRowCount(); i++) {
+            totalClassesAll += (int) tableModel.getValueAt(i, 1);
+            totalAttendedAll += (int) tableModel.getValueAt(i, 2);
+        }
+        if (totalClassesAll > 0) {
+            double overallPercent = ((double) totalAttendedAll / totalClassesAll) * 100;
+            if (overallPercent >= 75) {
+                statusBar.setBackground(new Color(39, 174, 96));
+            } else if (overallPercent >= 60) {
+                statusBar.setBackground(new Color(241, 196, 15));
+            } else {
+                statusBar.setBackground(new Color(192, 57, 43));
+            }
+        } else {
+            statusBar.setBackground(new Color(52, 152, 219));
+        }
+    }
+
+    private void updateOverallAttendanceTooltip() {
+        int totalClassesAll = 0, totalAttendedAll = 0, above75 = 0, totalSubjects = tableModel.getRowCount();
+        for (int i = 0; i < totalSubjects; i++) {
+            totalClassesAll += (int) tableModel.getValueAt(i, 1);
+            totalAttendedAll += (int) tableModel.getValueAt(i, 2);
+            double pct = ((double) (int) tableModel.getValueAt(i, 2) / (int) tableModel.getValueAt(i, 1)) * 100;
+            if (pct >= 75) above75++;
+        }
+        double overallPct = totalClassesAll > 0 ? ((double) totalAttendedAll / totalClassesAll) * 100 : 0;
+        overallAttendanceLabel.setToolTipText(String.format("<html>Subjects: %d<br>Safe (>=75%%): %d<br>At Risk: %d<br>Overall: %.2f%%</html>",
+                totalSubjects, above75, totalSubjects - above75, overallPct));
+    }
+
     private void updateOverallAttendance() {
         int totalClassesAll = 0;
         int totalAttendedAll = 0;
@@ -976,12 +1244,14 @@ public class AttendanceCalculator extends JFrame {
 
             if (overallPercent < required) {
                 overallAttendanceLabel.setForeground(new Color(192, 57, 43));
-                attendanceBar.setForeground(new Color(192, 57, 43));
+                attendanceBar.setForeground(useMonochromeBar ? new Color(52, 152, 219) : new Color(192, 57, 43));
             } else {
                 overallAttendanceLabel.setForeground(new Color(39, 174, 96));
-                attendanceBar.setForeground(new Color(39, 174, 96));
+                attendanceBar.setForeground(useMonochromeBar ? new Color(52, 152, 219) : new Color(39, 174, 96));
             }
         }
+        updateStatusBarColor();
+        updateOverallAttendanceTooltip();
     }
 
     private void printAttendanceTable() {
@@ -1037,7 +1307,24 @@ public class AttendanceCalculator extends JFrame {
             }
         };
         chartPanel.setBackground(Color.WHITE);
-        chartFrame.add(chartPanel);
+        chartFrame.add(chartPanel, BorderLayout.CENTER);
+
+        JPanel legendPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 5));
+        legendPanel.setBackground(Color.WHITE);
+        JLabel greenLabel = new JLabel("Safe (>=75%)");
+        greenLabel.setForeground(new Color(39, 174, 96));
+        greenLabel.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        JLabel yellowLabel = new JLabel("Warning (60-74%)");
+        yellowLabel.setForeground(new Color(241, 196, 15));
+        yellowLabel.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        JLabel redLabel = new JLabel("Critical (<60%)");
+        redLabel.setForeground(new Color(192, 57, 43));
+        redLabel.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        legendPanel.add(greenLabel);
+        legendPanel.add(yellowLabel);
+        legendPanel.add(redLabel);
+        chartFrame.add(legendPanel, BorderLayout.SOUTH);
+
         chartFrame.setVisible(true);
     }
 
@@ -1066,6 +1353,15 @@ public class AttendanceCalculator extends JFrame {
         JOptionPane.showMessageDialog(this, sb.toString(), "Weekly Attendance Summary", JOptionPane.INFORMATION_MESSAGE);
     }
 
+    private void updateUndoLabel() {
+        for (java.awt.Component c : statusBar.getComponents()) {
+            if (c instanceof JLabel && ((JLabel) c).getText().startsWith("Undo:")) {
+                ((JLabel) c).setText("Undo: " + undoStack.size());
+                break;
+            }
+        }
+    }
+
     private void saveUndoState() {
         int rowCount = tableModel.getRowCount();
         int colCount = tableModel.getColumnCount();
@@ -1077,6 +1373,7 @@ public class AttendanceCalculator extends JFrame {
         }
         undoStack.push(state);
         if (undoStack.size() > 20) undoStack.remove(0);
+        updateUndoLabel();
     }
 
     private void undoLastAction() {
@@ -1090,12 +1387,23 @@ public class AttendanceCalculator extends JFrame {
             tableModel.addRow(row);
         }
         updateOverallAttendance();
+        updateUndoLabel();
     }
 
     private void saveData() {
         saveDataQuiet();
         lastModifiedLabel.setText("Last Modified: " + java.time.LocalTime.now().format(java.time.format.DateTimeFormatter.ofPattern("HH:mm:ss")));
         JOptionPane.showMessageDialog(this, "Data saved successfully!", "Save", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void updateBackupLabel() {
+        for (java.awt.Component c : statusBar.getComponents()) {
+            if (c instanceof JLabel && ((JLabel) c).getText().startsWith("Backup:")) {
+                File bak = new File(databaseFile + ".bak");
+                ((JLabel) c).setText("Backup: " + (bak.exists() ? java.time.LocalTime.now().format(java.time.format.DateTimeFormatter.ofPattern("HH:mm")) : "None"));
+                break;
+            }
+        }
     }
 
     private void saveDataQuiet() {
@@ -1116,6 +1424,7 @@ public class AttendanceCalculator extends JFrame {
                 String status = (String) tableModel.getValueAt(i, 5);
                 pw.printf("%s,%d,%d,%s,%s,%s%n", escapeCsv(subject), total, attended, currentPct, requiredPct, escapeCsv(status));
             }
+            updateBackupLabel();
         } catch (IOException ex) {
             if ( SwingUtilities.getWindowAncestor(this) != null ) {
                 JOptionPane.showMessageDialog(this, "Error saving data: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -1135,6 +1444,11 @@ public class AttendanceCalculator extends JFrame {
         if (!file.exists()) {
             JOptionPane.showMessageDialog(this, "No saved data found.", "Load", JOptionPane.WARNING_MESSAGE);
             return;
+        }
+        if (tableModel.getRowCount() > 0) {
+            int saveFirst = JOptionPane.showConfirmDialog(this, "You have unsaved data. Save before loading?", "Unsaved Data", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+            if (saveFirst == JOptionPane.CANCEL_OPTION) return;
+            if (saveFirst == JOptionPane.YES_OPTION) saveDataQuiet();
         }
         int confirm = JOptionPane.showConfirmDialog(this, "Loading will replace current data. Continue?", "Confirm Load", JOptionPane.YES_NO_OPTION);
         if (confirm != JOptionPane.YES_OPTION) return;
@@ -1195,6 +1509,10 @@ public class AttendanceCalculator extends JFrame {
             if (!file.getName().toLowerCase().endsWith(".csv")) {
                 file = new File(file.getAbsolutePath() + ".csv");
             }
+            if (file.exists()) {
+                int overwrite = JOptionPane.showConfirmDialog(this, "File already exists. Overwrite?", "Confirm Overwrite", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                if (overwrite != JOptionPane.YES_OPTION) return;
+            }
             try (PrintWriter pw = new PrintWriter(new FileWriter(file))) {
                 pw.println("Subject,Total,Attended,Current %,Required %,Status/Needed");
                 for (int i = 0; i < tableModel.getRowCount(); i++) {
@@ -1236,6 +1554,150 @@ public class AttendanceCalculator extends JFrame {
                 JOptionPane.showMessageDialog(this, "Error importing data: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
+    }
+
+    private void exportSummaryReport() {
+        if (tableModel.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(this, "No data to export.", "Summary Report", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Export Summary Report");
+        fileChooser.setSelectedFile(new File("attendance_summary.txt"));
+        int userSelection = fileChooser.showSaveDialog(this);
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File file = fileChooser.getSelectedFile();
+            if (file.exists()) {
+                int overwrite = JOptionPane.showConfirmDialog(this, "File already exists. Overwrite?", "Confirm Overwrite", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                if (overwrite != JOptionPane.YES_OPTION) return;
+            }
+            int totalAll = 0, attendedAll = 0;
+            try (PrintWriter pw = new PrintWriter(new FileWriter(file))) {
+                pw.println("============================================");
+                pw.println("   ATTENDANCE SUMMARY REPORT");
+                pw.println("   Generated: " + java.time.LocalDateTime.now());
+                pw.println("   App Version: " + APP_VERSION);
+                pw.println("============================================");
+                pw.println();
+                pw.printf("%-25s %5s %5s %8s %8s%n", "Subject", "Total", "Att.", "Pct", "Status");
+                pw.println("------------------------------------------------");
+                for (int i = 0; i < tableModel.getRowCount(); i++) {
+                    String subject = (String) tableModel.getValueAt(i, 0);
+                    int total = (int) tableModel.getValueAt(i, 1);
+                    int attended = (int) tableModel.getValueAt(i, 2);
+                    String currentPct = (String) tableModel.getValueAt(i, 3);
+                    String status = (String) tableModel.getValueAt(i, 5);
+                    totalAll += total;
+                    attendedAll += attended;
+                    String shortStatus = status.startsWith("Safe") ? "SAFE" : status.startsWith("Alert") ? "ALERT" : "ON TRACK";
+                    pw.printf("%-25s %5d %5d %8s %8s%n", subject.length() > 23 ? subject.substring(0, 23) + ".." : subject, total, attended, currentPct, shortStatus);
+                }
+                pw.println("------------------------------------------------");
+                double overallPct = totalAll > 0 ? ((double) attendedAll / totalAll) * 100 : 0;
+                pw.printf("%-25s %5d %5d %8.2f%%%n", "TOTAL", totalAll, attendedAll, overallPct);
+                pw.println("============================================");
+                JOptionPane.showMessageDialog(this, "Summary exported to: " + file.getAbsolutePath(), "Summary Report", JOptionPane.INFORMATION_MESSAGE);
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this, "Error exporting: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    private void restoreFromBackup() {
+        File bakFile = new File(databaseFile + ".bak");
+        if (!bakFile.exists()) {
+            JOptionPane.showMessageDialog(this, "No backup file found.", "Restore Backup", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        int confirm = JOptionPane.showConfirmDialog(this, "Restore data from backup? Current data will be lost.", "Restore Backup", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        if (confirm != JOptionPane.YES_OPTION) return;
+        try {
+            tableModel.setRowCount(0);
+            try (BufferedReader br = new BufferedReader(new FileReader(bakFile))) {
+                String line;
+                while ((line = br.readLine()) != null) {
+                    if (line.trim().isEmpty()) continue;
+                    List<String> fields = parseCsvLine(line);
+                    if (fields.size() >= 6) {
+                        tableModel.addRow(fields.toArray());
+                    }
+                }
+            }
+            updateOverallAttendance();
+            JOptionPane.showMessageDialog(this, "Backup restored successfully!", "Restore Backup", JOptionPane.INFORMATION_MESSAGE);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "Error restoring backup: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void applyFilters(String query, int categoryIndex) {
+        javax.swing.table.TableRowSorter<DefaultTableModel> sorter = (javax.swing.table.TableRowSorter<DefaultTableModel>) subjectTable.getRowSorter();
+        String categoryFilter = categoryIndex == 0 ? null : (String) categoryCombo.getItemAt(categoryIndex - 1);
+        if (query.isEmpty() && categoryFilter == null) {
+            sorter.setRowFilter(null);
+        } else {
+            String finalQuery = query.toLowerCase();
+            sorter.setRowFilter(new javax.swing.RowFilter<DefaultTableModel, Integer>() {
+                @Override
+                public boolean include(javax.swing.RowFilter.Entry<? extends DefaultTableModel, ? extends Integer> entry) {
+                    boolean matchesSearch = finalQuery.isEmpty() || entry.getStringValue(0).toLowerCase().contains(finalQuery);
+                    boolean matchesCategory = categoryFilter == null || (entry.getValueCount() > 7 && categoryFilter.equals(entry.getStringValue(7)));
+                    return matchesSearch && matchesCategory;
+                }
+            });
+        }
+    }
+
+    private void exportHTML() {
+        if (tableModel.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(this, "No data to export.", "Export HTML", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Export as HTML");
+        fileChooser.setSelectedFile(new File("attendance_report.html"));
+        int userSelection = fileChooser.showSaveDialog(this);
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File file = fileChooser.getSelectedFile();
+            if (!file.getName().toLowerCase().endsWith(".html")) {
+                file = new File(file.getAbsolutePath() + ".html");
+            }
+            if (file.exists()) {
+                int overwrite = JOptionPane.showConfirmDialog(this, "File already exists. Overwrite?", "Confirm Overwrite", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                if (overwrite != JOptionPane.YES_OPTION) return;
+            }
+            try (PrintWriter pw = new PrintWriter(new FileWriter(file))) {
+                pw.println("<!DOCTYPE html><html><head><meta charset='UTF-8'><title>Attendance Report</title>");
+                pw.println("<style>body{font-family:Segoe UI,sans-serif;margin:20px}");
+                pw.println("h1{color:#3498db}table{border-collapse:collapse;width:100%;margin-top:20px}");
+                pw.println("th{background:#3498db;color:#fff;padding:10px;text-align:left}");
+                pw.println("td{padding:8px;border-bottom:1px solid #ddd}");
+                pw.println(".safe{color:#27ae60}.alert{color:#e74c3c}.warn{color:#f39c12}");
+                pw.println("</style></head><body>");
+                pw.println("<h1>Attendance Report</h1>");
+                pw.println("<p>Generated: " + java.time.LocalDateTime.now() + "</p>");
+                pw.println("<table><tr><th>Subject</th><th>Total</th><th>Attended</th><th>Current %</th><th>Required %</th><th>Status</th></tr>");
+                for (int i = 0; i < tableModel.getRowCount(); i++) {
+                    String subject = (String) tableModel.getValueAt(i, 0);
+                    int total = (int) tableModel.getValueAt(i, 1);
+                    int attended = (int) tableModel.getValueAt(i, 2);
+                    String currentPct = (String) tableModel.getValueAt(i, 3);
+                    String requiredPct = (String) tableModel.getValueAt(i, 4);
+                    String status = (String) tableModel.getValueAt(i, 5);
+                    String cls = status.startsWith("Safe") || status.startsWith("On track") ? "safe" : "alert";
+                    pw.printf("<tr><td>%s</td><td>%d</td><td>%d</td><td>%s</td><td>%s</td><td class='%s'>%s</td></tr>%n",
+                            escapeHtml(subject), total, attended, currentPct, requiredPct, cls, escapeHtml(status));
+                }
+                pw.println("</table></body></html>");
+                JOptionPane.showMessageDialog(this, "Exported to: " + file.getAbsolutePath(), "Export HTML", JOptionPane.INFORMATION_MESSAGE);
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this, "Error exporting: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    private String escapeHtml(String s) {
+        return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("\"", "&quot;");
     }
 
     public static void main(String[] args) {
