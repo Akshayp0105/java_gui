@@ -114,6 +114,10 @@ public class AttendanceCalculator extends JFrame {
         fileMenu.add(exportMenu);
         fileMenu.add(importMenu);
         fileMenu.add(exportHtmlMenu);
+        JMenuItem exportJsonMenu = new JMenuItem("Export as JSON");
+        exportJsonMenu.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        exportJsonMenu.addActionListener(e -> exportJSON());
+        fileMenu.add(exportJsonMenu);
         JMenuItem summaryReportMenu = new JMenuItem("Export Summary Report");
         summaryReportMenu.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         summaryReportMenu.addActionListener(e -> exportSummaryReport());
@@ -1667,6 +1671,48 @@ public class AttendanceCalculator extends JFrame {
                 }
             });
         }
+    }
+
+    private void exportJSON() {
+        if (tableModel.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(this, "No data to export.", "Export JSON", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Export as JSON");
+        fileChooser.setSelectedFile(new File("attendance_data.json"));
+        int userSelection = fileChooser.showSaveDialog(this);
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File file = fileChooser.getSelectedFile();
+            if (!file.getName().toLowerCase().endsWith(".json")) {
+                file = new File(file.getAbsolutePath() + ".json");
+            }
+            if (file.exists()) {
+                int overwrite = JOptionPane.showConfirmDialog(this, "File already exists. Overwrite?", "Confirm Overwrite", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                if (overwrite != JOptionPane.YES_OPTION) return;
+            }
+            try (PrintWriter pw = new PrintWriter(new FileWriter(file))) {
+                pw.println("[");
+                for (int i = 0; i < tableModel.getRowCount(); i++) {
+                    pw.printf("  {\"subject\":\"%s\",\"total\":%d,\"attended\":%d,\"percentage\":\"%s\",\"required\":\"%s\",\"status\":\"%s\"}%s%n",
+                            escapeJson((String) tableModel.getValueAt(i, 0)),
+                            (int) tableModel.getValueAt(i, 1),
+                            (int) tableModel.getValueAt(i, 2),
+                            escapeJson((String) tableModel.getValueAt(i, 3)),
+                            escapeJson((String) tableModel.getValueAt(i, 4)),
+                            escapeJson((String) tableModel.getValueAt(i, 5)),
+                            i < tableModel.getRowCount() - 1 ? "," : "");
+                }
+                pw.println("]");
+                JOptionPane.showMessageDialog(this, "Exported to: " + file.getAbsolutePath(), "Export JSON", JOptionPane.INFORMATION_MESSAGE);
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this, "Error exporting: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    private String escapeJson(String s) {
+        return s.replace("\\", "\\\\").replace("\"", "\\\"").replace("\n", "\\n").replace("\r", "\\r").replace("\t", "\\t");
     }
 
     private void exportHTML() {
