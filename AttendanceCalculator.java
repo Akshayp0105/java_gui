@@ -866,7 +866,7 @@ public class AttendanceCalculator extends JFrame {
         deleteButton.setFocusPainted(false);
         deleteButton.setFont(new Font("Segoe UI", Font.BOLD, 13));
         deleteButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        deleteButton.setToolTipText("Delete the selected row from table (Delete key)");
+        deleteButton.setToolTipText("Delete selected row(s) from table (Delete key, supports multi-select)");
         
         JButton clearButton = new JButton("Clear All");
         clearButton.setBackground(new Color(149, 165, 166));
