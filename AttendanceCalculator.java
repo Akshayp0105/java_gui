@@ -875,6 +875,7 @@ public class AttendanceCalculator extends JFrame {
         attendanceBar = new JProgressBar(0, 100);
         attendanceBar.setValue(0);
         attendanceBar.setStringPainted(true);
+        attendanceBar.setString("No Data");
         attendanceBar.setFont(new Font("Segoe UI", Font.BOLD, 12));
         attendanceBar.setPreferredSize(new Dimension(200, 25));
         attendanceBar.setForeground(new Color(39, 174, 96));
@@ -1274,7 +1275,8 @@ public class AttendanceCalculator extends JFrame {
             double overallPercent = ((double) totalAttendedAll / totalClassesAll) * 100;
             overallAttendanceLabel.setText(String.format("Overall Attendance: %.2f%% (%d / %d)", overallPercent, totalAttendedAll, totalClassesAll));
             attendanceBar.setValue((int) overallPercent);
-            attendanceBar.setString(String.format("%.1f%%", overallPercent));
+            String statusText = overallPercent >= 75 ? "SAFE" : overallPercent >= 60 ? "WARNING" : "CRITICAL";
+            attendanceBar.setString(String.format("%.1f%% - %s", overallPercent, statusText));
             double avgPct = totalPct / rowCount;
             if (statsLabel != null) {
                 statsLabel.setText(String.format("Subjects: %d | Highest: %.2f%% | Lowest: %.2f%% | Avg: %.2f%%", rowCount, highestPct, lowestPct, avgPct));
