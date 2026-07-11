@@ -876,7 +876,7 @@ public class AttendanceCalculator extends JFrame {
         clearButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         clearButton.setToolTipText("Clear all subjects from the table");
 
-        JButton predictButton = new JButton("Predict Attendance");
+        JButton predictButton = new JButton("Forecast");
         predictButton.setBackground(new Color(142, 68, 173));
         predictButton.setForeground(Color.WHITE);
         predictButton.setFocusPainted(false);
