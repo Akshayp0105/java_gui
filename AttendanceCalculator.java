@@ -581,7 +581,7 @@ public class AttendanceCalculator extends JFrame {
         JLabel catLabel = new JLabel("Category:");
         catLabel.setFont(labelFont);
         gbc.gridx = 0; gbc.gridy = 2; inputPanel.add(catLabel, gbc);
-        String[] categories = {"Core", "Elective", "Lab", "Theory", "Other"};
+        String[] categories = {"Theory", "Lab", "Core", "Elective", "Other"};
         categoryCombo = new JComboBox<>(categories);
         categoryCombo.setFont(fieldFont);
         categoryCombo.setToolTipText("Select subject category for grouping (Alt+1-5)");
