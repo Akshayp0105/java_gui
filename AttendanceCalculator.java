@@ -67,7 +67,7 @@ public class AttendanceCalculator extends JFrame {
         JPanel headerPanel = new JPanel();
         headerPanel.setBackground(new Color(41, 128, 185));
         int hour = java.time.LocalTime.now().getHour();
-        String greeting = hour < 12 ? "Good Morning" : hour < 17 ? "Good Afternoon" : "Good Evening";
+        String greeting = hour < 11 ? "Good Morning" : hour < 16 ? "Good Afternoon" : "Good Evening";
         JLabel titleLabel = new JLabel(greeting + " - Attendance Calculator Pro");
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 22));
         titleLabel.setForeground(Color.WHITE);
