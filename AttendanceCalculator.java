@@ -36,7 +36,7 @@ public class AttendanceCalculator extends JFrame {
     public AttendanceCalculator() {
         setTitle("Attn Calc Pro v" + APP_VERSION + " - " + java.time.LocalDate.now());
         setSize(900, 600);
-        setMinimumSize(new Dimension(700, 450));
+        setMinimumSize(new Dimension(720, 460));
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setLocationRelativeTo(null);
         addWindowListener(new java.awt.event.WindowAdapter() {
