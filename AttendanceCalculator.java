@@ -999,10 +999,10 @@ public class AttendanceCalculator extends JFrame {
         add(statusBar, BorderLayout.SOUTH);
 
         javax.swing.Timer clockTimer = new javax.swing.Timer(1000, e -> {
-            statusTimeLabel.setText(java.time.LocalDate.now().format(java.time.format.DateTimeFormatter.ofPattern("EEE, MMM d, yyyy")) + " | " + java.time.LocalTime.now().format(java.time.format.DateTimeFormatter.ofPattern("HH:mm:ss")));
+            statusTimeLabel.setText(java.time.LocalDate.now().format(java.time.format.DateTimeFormatter.ofPattern("EEEE, MMMM d, yyyy")) + " | " + java.time.LocalTime.now().format(java.time.format.DateTimeFormatter.ofPattern("HH:mm:ss")));
         });
         clockTimer.start();
-        statusTimeLabel.setText(java.time.LocalDate.now().format(java.time.format.DateTimeFormatter.ofPattern("EEE, MMM d, yyyy")) + " | " + java.time.LocalTime.now().format(java.time.format.DateTimeFormatter.ofPattern("HH:mm:ss")));
+        statusTimeLabel.setText(java.time.LocalDate.now().format(java.time.format.DateTimeFormatter.ofPattern("EEEE, MMMM d, yyyy")) + " | " + java.time.LocalTime.now().format(java.time.format.DateTimeFormatter.ofPattern("HH:mm:ss")));
 
         // Action Listeners
         calculateButton.addActionListener(e -> calculateAndAdd());
