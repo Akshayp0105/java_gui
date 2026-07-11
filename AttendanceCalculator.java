@@ -986,7 +986,7 @@ public class AttendanceCalculator extends JFrame {
         statusTimeLabel.setForeground(Color.WHITE);
         statusTimeLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         statusBar.add(statusTimeLabel);
-        JLabel undoSizeLabel = new JLabel("Undo: 0");
+        JLabel undoSizeLabel = new JLabel("Undo Stack: 0");
         undoSizeLabel.setForeground(Color.WHITE);
         undoSizeLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         undoSizeLabel.setToolTipText("Number of undo steps available");
