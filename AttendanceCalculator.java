@@ -969,7 +969,7 @@ public class AttendanceCalculator extends JFrame {
         versionLabel.setForeground(Color.WHITE);
         versionLabel.setFont(new Font("Segoe UI", Font.BOLD, 12));
         statusBar.add(versionLabel);
-        rowCountLabel = new JLabel("Subjects: 0");
+        rowCountLabel = new JLabel("Rows: 0");
         rowCountLabel.setForeground(Color.WHITE);
         rowCountLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         statusBar.add(rowCountLabel);
