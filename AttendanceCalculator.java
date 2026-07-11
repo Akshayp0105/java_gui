@@ -614,7 +614,7 @@ public class AttendanceCalculator extends JFrame {
         attendedClassesField.addKeyListener(enterKeyListener);
         requiredPercentageField.addKeyListener(enterKeyListener);
 
-        JButton calculateButton = new JButton("Calculate & Add");
+        JButton calculateButton = new JButton("Add Subject");
         calculateButton.setBackground(new Color(39, 174, 96));
         calculateButton.setForeground(Color.WHITE);
         calculateButton.setFocusPainted(false);
