@@ -71,7 +71,7 @@ public class AttendanceCalculator extends JFrame {
         JLabel titleLabel = new JLabel(greeting + " - Attendance Calculator Pro");
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 22));
         titleLabel.setForeground(Color.WHITE);
-        titleLabel.setToolTipText("Shortcuts: Ctrl+S Save | Ctrl+L Load | Ctrl+E Export | Ctrl+P Print | F1 Help");
+        titleLabel.setToolTipText("Shortcuts: Ctrl+S Save | Ctrl+L Load | Ctrl+E Export | Ctrl+P Print | F1 Help | Ctrl+Z Undo");
         headerPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
         headerPanel.add(titleLabel);
 
