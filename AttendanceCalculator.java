@@ -29,7 +29,7 @@ public class AttendanceCalculator extends JFrame {
     private boolean autoSave = true;
     private boolean darkMode = false;
     private boolean useMonochromeBar = false;
-    private String databaseFile = "attendance_database.csv";
+    private String databaseFile = "attendance_data.csv";
     private Stack<Object[][]> undoStack = new Stack<>();
     private java.util.Map<String, java.util.List<Double>> attendanceHistory = new java.util.HashMap<>();
 
