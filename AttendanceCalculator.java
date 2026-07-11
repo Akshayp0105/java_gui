@@ -713,7 +713,7 @@ public class AttendanceCalculator extends JFrame {
         });
 
         JScrollPane scrollPane = new JScrollPane(subjectTable);
-        scrollPane.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY), "Subject Details", 0, 0, new Font("Segoe UI", Font.BOLD, 12)));
+        scrollPane.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY), "Subjects List", 0, 0, new Font("Segoe UI", Font.BOLD, 12)));
 
         JPopupMenu tableContextMenu = new JPopupMenu();
         JMenuItem ctxRename = new JMenuItem("Rename Subject");
