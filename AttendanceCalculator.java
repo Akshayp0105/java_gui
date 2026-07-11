@@ -937,7 +937,7 @@ public class AttendanceCalculator extends JFrame {
         attendanceBar.setPreferredSize(new Dimension(180, 22));
         attendanceBar.setForeground(new Color(39, 174, 96));
 
-        JLabel statsLabel = new JLabel("Subjects: 0 | Highest: 0% | Lowest: 0% | Avg: 0%");
+        JLabel statsLabel = new JLabel("Rows: 0 | Max: 0% | Min: 0% | Avg: 0%");
         statsLabel.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         statsLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 
