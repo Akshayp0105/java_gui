@@ -655,7 +655,7 @@ public class AttendanceCalculator extends JFrame {
                             String status;
                             if (pct >= req) {
                                 int canMiss = (int) Math.floor(((double) attended * 100 / req) - total);
-                                status = canMiss > 0 ? "Safe! Can miss " + canMiss + " classes." : "On track.";
+                                status = canMiss > 0 ? "Good! Can skip " + canMiss + " classes." : "On track.";
                             } else {
                                 double r = req / 100.0;
                                 int needed = (int) Math.ceil((r * total - attended) / (1 - r));
