@@ -69,7 +69,7 @@ public class AttendanceCalculator extends JFrame {
         int hour = java.time.LocalTime.now().getHour();
         String greeting = hour < 12 ? "Good Morning" : hour < 17 ? "Good Afternoon" : "Good Evening";
         JLabel titleLabel = new JLabel(greeting + " - Attendance Calculator Pro");
-        titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 24));
+        titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 22));
         titleLabel.setForeground(Color.WHITE);
         titleLabel.setToolTipText("Shortcuts: Ctrl+S Save | Ctrl+L Load | Ctrl+E Export | Ctrl+P Print | F1 Help");
         headerPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
