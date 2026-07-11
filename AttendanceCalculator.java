@@ -1808,7 +1808,7 @@ public class AttendanceCalculator extends JFrame {
         }
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Export as HTML");
-        fileChooser.setSelectedFile(new File("attendance_report.html"));
+        fileChooser.setSelectedFile(new File("report.html"));
         int userSelection = fileChooser.showSaveDialog(this);
         if (userSelection == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
