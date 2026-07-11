@@ -965,7 +965,7 @@ public class AttendanceCalculator extends JFrame {
         // Status bar
         statusBar = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 2));
         statusBar.setBackground(new Color(52, 152, 219));
-        JLabel versionLabel = new JLabel("v" + APP_VERSION);
+        JLabel versionLabel = new JLabel("Ver. " + APP_VERSION);
         versionLabel.setForeground(Color.WHITE);
         versionLabel.setFont(new Font("Segoe UI", Font.BOLD, 12));
         statusBar.add(versionLabel);
