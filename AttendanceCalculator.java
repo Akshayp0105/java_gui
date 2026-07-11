@@ -538,7 +538,7 @@ public class AttendanceCalculator extends JFrame {
 
         // Top Panel for Inputs
         JPanel inputPanel = new JPanel(new GridBagLayout());
-        inputPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY), "Add New Subject", 0, 0, new Font("Segoe UI", Font.BOLD, 12)));
+        inputPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY), "New Subject", 0, 0, new Font("Segoe UI", Font.BOLD, 12)));
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(8, 8, 8, 8);
         gbc.fill = GridBagConstraints.HORIZONTAL;
