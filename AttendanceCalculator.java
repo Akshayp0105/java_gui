@@ -1610,7 +1610,7 @@ public class AttendanceCalculator extends JFrame {
         }
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Export as CSV");
-        fileChooser.setSelectedFile(new File("attendance_export.csv"));
+        fileChooser.setSelectedFile(new File("exported_data.csv"));
         int userSelection = fileChooser.showSaveDialog(this);
         if (userSelection == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
