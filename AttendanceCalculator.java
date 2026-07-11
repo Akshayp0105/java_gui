@@ -999,10 +999,10 @@ public class AttendanceCalculator extends JFrame {
         add(statusBar, BorderLayout.SOUTH);
 
         javax.swing.Timer clockTimer = new javax.swing.Timer(1000, e -> {
-            statusTimeLabel.setText(java.time.LocalDate.now().format(java.time.format.DateTimeFormatter.ofPattern("EEEE, MMMM d, yyyy")) + " | " + java.time.LocalTime.now().format(java.time.format.DateTimeFormatter.ofPattern("HH:mm:ss")));
+            statusTimeLabel.setText(java.time.LocalDate.now().format(java.time.format.DateTimeFormatter.ofPattern("EEEE, MMMM d, yyyy")) + " | " + java.time.LocalTime.now().format(java.time.format.DateTimeFormatter.ofPattern("hh:mm:ss a")));
         });
         clockTimer.start();
-        statusTimeLabel.setText(java.time.LocalDate.now().format(java.time.format.DateTimeFormatter.ofPattern("EEEE, MMMM d, yyyy")) + " | " + java.time.LocalTime.now().format(java.time.format.DateTimeFormatter.ofPattern("HH:mm:ss")));
+        statusTimeLabel.setText(java.time.LocalDate.now().format(java.time.format.DateTimeFormatter.ofPattern("EEEE, MMMM d, yyyy")) + " | " + java.time.LocalTime.now().format(java.time.format.DateTimeFormatter.ofPattern("hh:mm:ss a")));
 
         // Action Listeners
         calculateButton.addActionListener(e -> calculateAndAdd());
@@ -1500,7 +1500,7 @@ public class AttendanceCalculator extends JFrame {
 
     private void saveData() {
         saveDataQuiet();
-        lastModifiedLabel.setText("Last Modified: " + java.time.LocalTime.now().format(java.time.format.DateTimeFormatter.ofPattern("HH:mm:ss")));
+        lastModifiedLabel.setText("Last Modified: " + java.time.LocalTime.now().format(java.time.format.DateTimeFormatter.ofPattern("hh:mm:ss a")));
         JOptionPane.showMessageDialog(this, "Data saved successfully!", "Save", JOptionPane.INFORMATION_MESSAGE);
     }
 
