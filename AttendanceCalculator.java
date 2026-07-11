@@ -659,7 +659,7 @@ public class AttendanceCalculator extends JFrame {
                             } else {
                                 double r = req / 100.0;
                                 int needed = (int) Math.ceil((r * total - attended) / (1 - r));
-                                status = "Alert! Need " + needed + " more.";
+                                status = "Warning! Need " + needed + " more.";
                             }
                             tableModel.setValueAt(status, row, 5);
                             updateOverallAttendance();
@@ -1088,7 +1088,7 @@ public class AttendanceCalculator extends JFrame {
                     double r = customPct / 100.0;
                     double needed = (r * total - attended) / (1 - r);
                     int neededClasses = (int) Math.ceil(needed);
-                    status = "Alert! Need " + neededClasses + " more classes.";
+                    status = "Warning! Need " + neededClasses + " more classes.";
                 }
                 tableModel.setValueAt(String.format("%.0f%%", customPct), modelRow, 4);
                 tableModel.setValueAt(status, modelRow, 5);
