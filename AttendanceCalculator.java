@@ -822,7 +822,7 @@ public class AttendanceCalculator extends JFrame {
         filterPanel.add(searchField);
         filterPanel.add(new JLabel("Category:"));
         JComboBox<String> categoryFilter = new JComboBox<>(new String[]{"All", "Theory", "Lab", "Core", "Elective", "Other"});
-        JComboBox<String> statusFilter = new JComboBox<>(new String[]{"All Status", "Safe Only", "At Risk Only"});
+        JComboBox<String> statusFilter = new JComboBox<>(new String[]{"All", "Safe", "At Risk"});
         categoryFilter.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         categoryFilter.setToolTipText("Filter by subject category");
         filterPanel.add(categoryFilter);
