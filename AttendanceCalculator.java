@@ -1671,7 +1671,7 @@ public class AttendanceCalculator extends JFrame {
         }
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Export Summary Report");
-        fileChooser.setSelectedFile(new File("attendance_summary.txt"));
+        fileChooser.setSelectedFile(new File("summary_report.txt"));
         int userSelection = fileChooser.showSaveDialog(this);
         if (userSelection == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
