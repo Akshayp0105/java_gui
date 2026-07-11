@@ -977,7 +977,7 @@ public class AttendanceCalculator extends JFrame {
         lastModifiedLabel.setForeground(Color.WHITE);
         lastModifiedLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         statusBar.add(lastModifiedLabel);
-        JLabel backupLabel = new JLabel("Backup: None");
+        JLabel backupLabel = new JLabel("Backup: N/A");
         backupLabel.setForeground(Color.WHITE);
         backupLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         backupLabel.setToolTipText("Last backup file timestamp");
