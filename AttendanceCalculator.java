@@ -1328,7 +1328,7 @@ public class AttendanceCalculator extends JFrame {
         }
 
         if (totalClassesAll == 0) {
-            overallAttendanceLabel.setText("No subjects added yet. Add subjects to see attendance summary.");
+            overallAttendanceLabel.setText("No subjects. Add entries to view summary.");
             overallAttendanceLabel.setForeground(Color.BLACK);
             if (statsLabel != null) statsLabel.setText("Subjects: 0 | Highest: 0% | Lowest: 0% | Avg: 0%");
             attendanceBar.setValue(0);
