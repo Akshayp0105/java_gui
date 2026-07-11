@@ -991,7 +991,7 @@ public class AttendanceCalculator extends JFrame {
         undoSizeLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         undoSizeLabel.setToolTipText("Number of undo steps available");
         statusBar.add(undoSizeLabel);
-        JLabel autoSaveStatus = new JLabel("Auto-Save: ON");
+        JLabel autoSaveStatus = new JLabel("AutoSave: ON");
         autoSaveStatus.setForeground(Color.WHITE);
         autoSaveStatus.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         autoSaveStatus.setToolTipText("Auto-save status");
