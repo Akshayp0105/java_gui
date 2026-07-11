@@ -932,7 +932,7 @@ public class AttendanceCalculator extends JFrame {
         attendanceBar = new JProgressBar(0, 100);
         attendanceBar.setValue(0);
         attendanceBar.setStringPainted(true);
-        attendanceBar.setString("No Data");
+        attendanceBar.setString("Empty");
         attendanceBar.setFont(new Font("Segoe UI", Font.BOLD, 12));
         attendanceBar.setPreferredSize(new Dimension(180, 22));
         attendanceBar.setForeground(new Color(39, 174, 96));
@@ -1332,7 +1332,7 @@ public class AttendanceCalculator extends JFrame {
             overallAttendanceLabel.setForeground(Color.BLACK);
             if (statsLabel != null) statsLabel.setText("Subjects: 0 | Highest: 0% | Lowest: 0% | Avg: 0%");
             attendanceBar.setValue(0);
-            attendanceBar.setString("No Data");
+            attendanceBar.setString("Empty");
         } else {
             double overallPercent = ((double) totalAttendedAll / totalClassesAll) * 100;
             overallAttendanceLabel.setText(String.format("Overall Attendance: %.2f%% (%d / %d)", overallPercent, totalAttendedAll, totalClassesAll));
