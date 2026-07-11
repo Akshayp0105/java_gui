@@ -1766,7 +1766,7 @@ public class AttendanceCalculator extends JFrame {
         }
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Export as JSON");
-        fileChooser.setSelectedFile(new File("attendance_data.json"));
+        fileChooser.setSelectedFile(new File("data_export.json"));
         int userSelection = fileChooser.showSaveDialog(this);
         if (userSelection == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
