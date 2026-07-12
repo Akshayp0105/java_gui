@@ -1438,7 +1438,7 @@ public class AttendanceCalculator extends JFrame {
 
     private void showWeeklySummary() {
         if (tableModel.getRowCount() == 0) {
-            JOptionPane.showMessageDialog(this, "No data available for weekly summary.", "Weekly Summary", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No weekly data.", "Weekly Summary", JOptionPane.WARNING_MESSAGE);
             return;
         }
         StringBuilder sb = new StringBuilder();
