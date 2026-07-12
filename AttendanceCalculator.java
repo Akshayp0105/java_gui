@@ -1379,7 +1379,7 @@ public class AttendanceCalculator extends JFrame {
             JOptionPane.showMessageDialog(this, "No stats data.", "Statistics", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        JFrame chartFrame = new JFrame("Attendance Statistics Chart - v" + APP_VERSION);
+        JFrame chartFrame = new JFrame("Statistics Chart - v" + APP_VERSION);
         chartFrame.setSize(600, 400);
         chartFrame.setLocationRelativeTo(this);
 
@@ -1885,5 +1885,6 @@ public class AttendanceCalculator extends JFrame {
         return img;
     }
 }
+
 
 
