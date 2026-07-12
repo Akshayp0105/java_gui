@@ -118,7 +118,7 @@ public class AttendanceCalculator extends JFrame {
         exportJsonMenu.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         exportJsonMenu.addActionListener(e -> exportJSON());
         fileMenu.add(exportJsonMenu);
-        JMenuItem summaryReportMenu = new JMenuItem("Export Summary Report");
+        JMenuItem summaryReportMenu = new JMenuItem("Summary Report");
         summaryReportMenu.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         summaryReportMenu.addActionListener(e -> exportSummaryReport());
         fileMenu.add(summaryReportMenu);
@@ -1670,7 +1670,7 @@ public class AttendanceCalculator extends JFrame {
             return;
         }
         JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Export Summary Report");
+        fileChooser.setDialogTitle("Summary Report");
         fileChooser.setSelectedFile(new File("summary_report.txt"));
         int userSelection = fileChooser.showSaveDialog(this);
         if (userSelection == JFileChooser.APPROVE_OPTION) {
