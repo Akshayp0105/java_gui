@@ -1572,7 +1572,7 @@ public class AttendanceCalculator extends JFrame {
                 }
             }
             updateOverallAttendance();
-            JOptionPane.showMessageDialog(this, "Data loaded successfully!", "Load", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Loaded!", "Load", JOptionPane.INFORMATION_MESSAGE);
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(this, "Error loading data: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
