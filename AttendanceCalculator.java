@@ -1176,7 +1176,7 @@ public class AttendanceCalculator extends JFrame {
         try {
             String subject = subjectField.getText().trim();
             if (subject.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Please enter a subject name.", "Input Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Enter a subject name.", "Input Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             if (subject.length() > 40) {
