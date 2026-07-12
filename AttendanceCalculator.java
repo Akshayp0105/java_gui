@@ -175,7 +175,7 @@ public class AttendanceCalculator extends JFrame {
         minimizeToTrayMenuItem.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         viewMenu.add(minimizeToTrayMenuItem);
 
-        JMenuItem weeklyTracker = new JMenuItem("Weekly Attendance Summary");
+        JMenuItem weeklyTracker = new JMenuItem("Weekly Summary");
         weeklyTracker.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         weeklyTracker.addActionListener(e -> showWeeklySummary());
         viewMenu.add(weeklyTracker);
@@ -1458,7 +1458,7 @@ public class AttendanceCalculator extends JFrame {
             sb.append(String.format("%s: %d/%d (%.1f%%) - %s%n", subject, attended, total, pct, status));
         }
         sb.append(String.format("\nOverall Average: %.2f%%", totalPct / count));
-        JOptionPane.showMessageDialog(this, sb.toString(), "Weekly Attendance Summary", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, sb.toString(), "Weekly Summary", JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void updateUndoLabel() {
