@@ -1501,7 +1501,7 @@ public class AttendanceCalculator extends JFrame {
     private void saveData() {
         saveDataQuiet();
         lastModifiedLabel.setText("Last Modified: " + java.time.LocalTime.now().format(java.time.format.DateTimeFormatter.ofPattern("hh:mm:ss a")));
-        JOptionPane.showMessageDialog(this, "Data saved successfully!", "Save", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Saved!", "Save", JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void updateBackupLabel() {
