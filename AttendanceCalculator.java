@@ -114,7 +114,7 @@ public class AttendanceCalculator extends JFrame {
         fileMenu.add(exportMenu);
         fileMenu.add(importMenu);
         fileMenu.add(exportHtmlMenu);
-        JMenuItem exportJsonMenu = new JMenuItem("Export as JSON");
+        JMenuItem exportJsonMenu = new JMenuItem("Export JSON");
         exportJsonMenu.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         exportJsonMenu.addActionListener(e -> exportJSON());
         fileMenu.add(exportJsonMenu);
@@ -1765,7 +1765,7 @@ public class AttendanceCalculator extends JFrame {
             return;
         }
         JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Export as JSON");
+        fileChooser.setDialogTitle("Export JSON");
         fileChooser.setSelectedFile(new File("data_export.json"));
         int userSelection = fileChooser.showSaveDialog(this);
         if (userSelection == JFileChooser.APPROVE_OPTION) {
