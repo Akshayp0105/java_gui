@@ -1508,7 +1508,7 @@ public class AttendanceCalculator extends JFrame {
         for (java.awt.Component c : statusBar.getComponents()) {
             if (c instanceof JLabel && ((JLabel) c).getText().startsWith("Backup:")) {
                 File bak = new File(databaseFile + ".bak");
-                ((JLabel) c).setText("Backup: " + (bak.exists() ? java.time.LocalTime.now().format(java.time.format.DateTimeFormatter.ofPattern("HH:mm")) : "None"));
+                ((JLabel) c).setText("Bak: " + (bak.exists() ? java.time.LocalTime.now().format(java.time.format.DateTimeFormatter.ofPattern("HH:mm")) : "None"));
                 break;
             }
         }
