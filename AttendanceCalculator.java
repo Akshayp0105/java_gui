@@ -544,7 +544,7 @@ public class AttendanceCalculator extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         Font labelFont = new Font("Segoe UI", Font.BOLD, 14);
-        Font fieldFont = new Font("Segoe UI", Font.PLAIN, 14);
+        Font fieldFont = new Font("Segoe UI", Font.PLAIN, 13);
 
         JLabel subLabel = new JLabel("Subject Name:");
         subLabel.setFont(labelFont);
