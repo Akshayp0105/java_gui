@@ -85,7 +85,7 @@ public class AttendanceCalculator extends JFrame {
         JMenuItem loadMenu = new JMenuItem("Load");
         loadMenu.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         loadMenu.addActionListener(e -> loadData());
-        JMenuItem exportMenu = new JMenuItem("Export as CSV");
+        JMenuItem exportMenu = new JMenuItem("Export CSV");
         exportMenu.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         exportMenu.addActionListener(e -> exportCSV());
         JMenuItem importMenu = new JMenuItem("Import from CSV");
@@ -751,7 +751,7 @@ public class AttendanceCalculator extends JFrame {
                 updateOverallAttendance();
             }
         });
-        JMenuItem ctxExport = new JMenuItem("Export as CSV");
+        JMenuItem ctxExport = new JMenuItem("Export CSV");
         ctxExport.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         ctxExport.addActionListener(e -> exportCSV());
         JMenuItem ctxCopy = new JMenuItem("Copy Table Data");
@@ -1609,7 +1609,7 @@ public class AttendanceCalculator extends JFrame {
             return;
         }
         JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Export as CSV");
+        fileChooser.setDialogTitle("Export CSV");
         fileChooser.setSelectedFile(new File("exported_data.csv"));
         int userSelection = fileChooser.showSaveDialog(this);
         if (userSelection == JFileChooser.APPROVE_OPTION) {
