@@ -91,7 +91,7 @@ public class AttendanceCalculator extends JFrame {
         JMenuItem importMenu = new JMenuItem("Import CSV");
         importMenu.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         importMenu.addActionListener(e -> importCSV());
-        JMenuItem exportHtmlMenu = new JMenuItem("Export as HTML");
+        JMenuItem exportHtmlMenu = new JMenuItem("Export HTML");
         exportHtmlMenu.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         exportHtmlMenu.addActionListener(e -> exportHTML());
         JMenuItem exitMenu = new JMenuItem("Exit");
@@ -1807,7 +1807,7 @@ public class AttendanceCalculator extends JFrame {
             return;
         }
         JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Export as HTML");
+        fileChooser.setDialogTitle("Export HTML");
         fileChooser.setSelectedFile(new File("report.html"));
         int userSelection = fileChooser.showSaveDialog(this);
         if (userSelection == JFileChooser.APPROVE_OPTION) {
