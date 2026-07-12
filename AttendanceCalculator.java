@@ -1376,7 +1376,7 @@ public class AttendanceCalculator extends JFrame {
 
     private void showStatisticsChart() {
         if (tableModel.getRowCount() == 0) {
-            JOptionPane.showMessageDialog(this, "No data available for statistics.", "Statistics", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No stats data.", "Statistics", JOptionPane.WARNING_MESSAGE);
             return;
         }
         JFrame chartFrame = new JFrame("Attendance Statistics Chart - v" + APP_VERSION);
