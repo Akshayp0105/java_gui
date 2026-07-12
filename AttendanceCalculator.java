@@ -861,7 +861,7 @@ public class AttendanceCalculator extends JFrame {
 
         JPanel actionPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JButton deleteButton = new JButton("Delete Selected");
-        deleteButton.setBackground(new Color(192, 57, 43));
+        deleteButton.setBackground(new Color(200, 50, 50));
         deleteButton.setForeground(Color.WHITE);
         deleteButton.setFocusPainted(false);
         deleteButton.setFont(new Font("Segoe UI", Font.BOLD, 13));
