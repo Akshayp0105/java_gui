@@ -1486,7 +1486,7 @@ public class AttendanceCalculator extends JFrame {
 
     private void undoLastAction() {
         if (undoStack.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Nothing to undo.", "Undo", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No undo steps.", "Undo", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
         Object[][] prevState = undoStack.pop();
