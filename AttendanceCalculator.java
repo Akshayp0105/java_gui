@@ -43,7 +43,7 @@ public class AttendanceCalculator extends JFrame {
             @Override
             public void windowClosing(java.awt.event.WindowEvent e) {
                 if (tableModel.getRowCount() > 0) {
-                    int confirm = JOptionPane.showConfirmDialog(null, "Do you want to exit? Unsaved changes may be lost.", "Confirm Exit", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                    int confirm = JOptionPane.showConfirmDialog(null, "Do you want to exit? Unsaved changes may be lost.", "Exit?", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
                     if (confirm == JOptionPane.YES_OPTION) {
                         if (autoSave) saveDataQuiet();
                         System.exit(0);
