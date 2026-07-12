@@ -1550,7 +1550,7 @@ public class AttendanceCalculator extends JFrame {
     private void loadData() {
         File file = new File(databaseFile);
         if (!file.exists()) {
-            JOptionPane.showMessageDialog(this, "No saved data found.", "Load", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No saved data.", "Load", JOptionPane.WARNING_MESSAGE);
             return;
         }
         if (tableModel.getRowCount() > 0) {
