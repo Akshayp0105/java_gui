@@ -664,7 +664,9 @@ public class AttendanceCalculator extends JFrame {
                             tableModel.setValueAt(status, row, 5);
                             updateOverallAttendance();
                         }
-                    } catch (Exception ignored) {}
+                    } catch (Exception ex) {
+                        System.err.println("Table model update error at row " + row + ": " + ex.getMessage());
+                    }
                 }
             }
         });
