@@ -3,9 +3,10 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.io.*;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
-import java.util.Stack;
 
 public class AttendanceCalculator extends JFrame {
     private static final String APP_VERSION = "2.3.0";
@@ -36,7 +37,7 @@ public class AttendanceCalculator extends JFrame {
     private boolean darkMode = false;
     private boolean useMonochromeBar = false;
     private String databaseFile = "attendance_data.csv";
-    private Stack<Object[][]> undoStack = new Stack<>();
+    private Deque<Object[][]> undoStack = new ArrayDeque<>();
     private java.util.Map<String, java.util.List<Double>> attendanceHistory = new java.util.HashMap<>();
 
     public AttendanceCalculator() {
@@ -1495,8 +1496,8 @@ public class AttendanceCalculator extends JFrame {
                 state[i][j] = tableModel.getValueAt(i, j);
             }
         }
-        undoStack.push(state);
-        if (undoStack.size() > 20) undoStack.remove(0);
+        undoStack.offerLast(state);
+        if (undoStack.size() > 20) undoStack.pollFirst();
         updateUndoLabel();
     }
 
@@ -1505,7 +1506,7 @@ public class AttendanceCalculator extends JFrame {
             JOptionPane.showMessageDialog(this, "No undo steps.", "Undo", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
-        Object[][] prevState = undoStack.pop();
+        Object[][] prevState = undoStack.pollLast();
         tableModel.setRowCount(0);
         for (Object[] row : prevState) {
             tableModel.addRow(row);
