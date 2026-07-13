@@ -16,6 +16,10 @@ public class AttendanceCalculator extends JFrame {
     private static final Color COLOR_DANGER = new Color(192, 57, 43);
     private static final Color COLOR_TABLE_HEADER = new Color(236, 240, 241);
     private static final Color COLOR_SELECTION = new Color(189, 195, 199);
+    private static final Font FONT_LABEL = new Font("Segoe UI", Font.BOLD, 14);
+    private static final Font FONT_FIELD = new Font("Segoe UI", Font.PLAIN, 13);
+    private static final Font FONT_MENU = new Font("Segoe UI", Font.PLAIN, 13);
+    private static final Font FONT_BUTTON = new Font("Segoe UI", Font.BOLD, 13);
     private JTextField subjectField;
     private JTextField totalClassesField;
     private JTextField attendedClassesField;
@@ -97,7 +101,7 @@ public class AttendanceCalculator extends JFrame {
         // Menu Bar
         JMenuBar menuBar = new JMenuBar();
         JMenu fileMenu = new JMenu("File");
-        fileMenu.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        fileMenu.setFont(FONT_MENU);
         JMenuItem saveMenu = new JMenuItem("Save");
         saveMenu.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         saveMenu.addActionListener(e -> saveData());
