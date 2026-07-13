@@ -1641,7 +1641,7 @@ public class AttendanceCalculator extends JFrame {
                 if (overwrite != JOptionPane.YES_OPTION) return;
             }
             try (PrintWriter pw = new PrintWriter(new FileWriter(file))) {
-                pw.println("Subject,Total,Attended,Current %,Required %,Status/Needed");
+                pw.println("Subject,Total,Attended,Current %,Required %,Status/Needed,Trend,Category");
                 for (int i = 0; i < tableModel.getRowCount(); i++) {
                     String subject = (String) tableModel.getValueAt(i, 0);
                     int total = (int) tableModel.getValueAt(i, 1);
@@ -1649,7 +1649,9 @@ public class AttendanceCalculator extends JFrame {
                     String currentPct = (String) tableModel.getValueAt(i, 3);
                     String requiredPct = (String) tableModel.getValueAt(i, 4);
                     String status = (String) tableModel.getValueAt(i, 5);
-                    pw.printf("%s,%d,%d,%s,%s,%s%n", escapeCsv(subject), total, attended, currentPct, requiredPct, escapeCsv(status));
+                    String trend = tableModel.getColumnCount() > 6 ? (String) tableModel.getValueAt(i, 6) : "";
+                    String category = tableModel.getColumnCount() > 7 ? (String) tableModel.getValueAt(i, 7) : "";
+                    pw.printf("%s,%d,%d,%s,%s,%s,%s,%s%n", escapeCsv(subject), total, attended, currentPct, requiredPct, escapeCsv(status), trend, category);
                 }
                 JOptionPane.showMessageDialog(this, "Exported to: " + file.getAbsolutePath(), "Export", JOptionPane.INFORMATION_MESSAGE);
             } catch (IOException ex) {
