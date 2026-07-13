@@ -1313,7 +1313,7 @@ public class AttendanceCalculator extends JFrame {
             subjectField.requestFocus();
 
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Please enter valid numeric values for classes/days and percentage.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Please enter valid numeric values for classes and percentage.\nError: " + ex.getMessage(), "Input Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
