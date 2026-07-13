@@ -828,6 +828,7 @@ public class AttendanceCalculator extends JFrame {
         ctxMoveBottom.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         ctxMoveBottom.addActionListener(e -> moveRowToTopOrBottom(false));
         tableContextMenu.add(ctxMoveBottom);
+        tableContextMenu.addSeparator();
         JMenuItem ctxCopyCell = new JMenuItem("Copy Cell Value");
         ctxCopyCell.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         ctxCopyCell.addActionListener(e -> {
