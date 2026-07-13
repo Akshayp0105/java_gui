@@ -1493,8 +1493,8 @@ public class AttendanceCalculator extends JFrame {
 
     private void updateUndoLabel() {
         for (java.awt.Component c : statusBar.getComponents()) {
-            if (c instanceof JLabel && ((JLabel) c).getText().startsWith("Undo:")) {
-                ((JLabel) c).setText("Undo: " + undoStack.size());
+            if (c instanceof JLabel && ((JLabel) c).getText().startsWith("Undo")) {
+                ((JLabel) c).setText("Undo Stack: " + undoStack.size());
                 break;
             }
         }
