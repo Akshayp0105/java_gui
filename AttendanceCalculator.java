@@ -1347,12 +1347,16 @@ public class AttendanceCalculator extends JFrame {
         int rowCount = tableModel.getRowCount();
         
         for (int i = 0; i < rowCount; i++) {
-            totalClassesAll += (int) tableModel.getValueAt(i, 1);
-            totalAttendedAll += (int) tableModel.getValueAt(i, 2);
-            double pct = ((double) (int) tableModel.getValueAt(i, 2) / (int) tableModel.getValueAt(i, 1)) * 100;
-            if (pct > highestPct) highestPct = pct;
-            if (pct < lowestPct) lowestPct = pct;
-            totalPct += pct;
+            try {
+                totalClassesAll += (int) tableModel.getValueAt(i, 1);
+                totalAttendedAll += (int) tableModel.getValueAt(i, 2);
+                double pct = ((double) (int) tableModel.getValueAt(i, 2) / (int) tableModel.getValueAt(i, 1)) * 100;
+                if (pct > highestPct) highestPct = pct;
+                if (pct < lowestPct) lowestPct = pct;
+                totalPct += pct;
+            } catch (Exception ex) {
+                System.err.println("Error calculating attendance for row " + i + ": " + ex.getMessage());
+            }
         }
 
         if (totalClassesAll == 0) {
