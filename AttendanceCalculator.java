@@ -1218,8 +1218,16 @@ public class AttendanceCalculator extends JFrame {
             int attended = Integer.parseInt(attendedClassesField.getText().trim());
             double required = Double.parseDouble(requiredPercentageField.getText().trim());
 
-            if (total <= 0 || attended < 0 || required < 0 || required > 100) {
-                JOptionPane.showMessageDialog(this, "Please enter valid positive numbers. Percentage must be between 0 and 100.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            if (total <= 0) {
+                JOptionPane.showMessageDialog(this, "Total classes must be a positive number.", "Input Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (attended < 0) {
+                JOptionPane.showMessageDialog(this, "Attended classes cannot be negative.", "Input Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (required < 0 || required > 100) {
+                JOptionPane.showMessageDialog(this, "Required percentage must be between 0 and 100.", "Input Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
