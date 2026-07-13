@@ -1349,7 +1349,9 @@ public class AttendanceCalculator extends JFrame {
             double required = 75.0;
             try {
                 required = Double.parseDouble(requiredPercentageField.getText().trim());
-            } catch (Exception ignored) {}
+            } catch (NumberFormatException ex) {
+                required = 75.0;
+            }
 
             if (overallPercent < required) {
                 overallAttendanceLabel.setForeground(new Color(192, 57, 43));
