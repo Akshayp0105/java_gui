@@ -9,7 +9,7 @@ import java.util.Deque;
 import java.util.List;
 
 public class AttendanceCalculator extends JFrame {
-    private static final String APP_VERSION = "2.3.0";
+    private static final String APP_VERSION = "2.4.0";
     private static final Color COLOR_HEADER = new Color(41, 128, 185);
     private static final Color COLOR_SAFE = new Color(39, 174, 96);
     private static final Color COLOR_WARNING = new Color(241, 196, 15);
