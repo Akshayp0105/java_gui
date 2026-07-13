@@ -33,6 +33,7 @@ public class AttendanceCalculator extends JFrame {
     private JPanel statusBar;
     private JButton moveUpButton;
     private JButton moveDownButton;
+    private JLabel statsLabel;
     private boolean autoSave = true;
     private boolean darkMode = false;
     private boolean useMonochromeBar = false;
@@ -952,7 +953,7 @@ public class AttendanceCalculator extends JFrame {
         attendanceBar.setPreferredSize(new Dimension(180, 22));
         attendanceBar.setForeground(new Color(39, 174, 96));
 
-        JLabel statsLabel = new JLabel("Rows: 0 | Max: 0% | Min: 0% | Avg: 0%");
+        statsLabel = new JLabel("Rows: 0 | Max: 0% | Min: 0% | Avg: 0%");
         statsLabel.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         statsLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 
@@ -1321,15 +1322,6 @@ public class AttendanceCalculator extends JFrame {
         int totalClassesAll = 0;
         int totalAttendedAll = 0;
         
-        // Find statsLabel - it's the second label in summaryPanel
-        JLabel statsLabel = null;
-        if (bottomPanel.getComponent(1) instanceof JPanel) {
-            JPanel summaryPanel = (JPanel) bottomPanel.getComponent(1);
-            if (summaryPanel.getComponentCount() > 1 && summaryPanel.getComponent(1) instanceof JLabel) {
-                statsLabel = (JLabel) summaryPanel.getComponent(1);
-            }
-        }
-
         double highestPct = 0, lowestPct = 100, totalPct = 0;
         int rowCount = tableModel.getRowCount();
         
