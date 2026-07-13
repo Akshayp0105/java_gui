@@ -774,8 +774,9 @@ public class AttendanceCalculator extends JFrame {
         ctxClearAll.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         ctxClearAll.addActionListener(e -> {
             if (tableModel.getRowCount() == 0) return;
-            int confirm = JOptionPane.showConfirmDialog(null, "Clear all rows?", "Confirm", JOptionPane.YES_NO_OPTION);
+            int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to clear all rows? This cannot be undone.", "Clear All Rows", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
             if (confirm == JOptionPane.YES_OPTION) {
+                saveUndoState();
                 tableModel.setRowCount(0);
                 updateOverallAttendance();
             }
