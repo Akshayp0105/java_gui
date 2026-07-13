@@ -46,9 +46,11 @@ public class AttendanceCalculator extends JFrame {
                     int confirm = JOptionPane.showConfirmDialog(null, "Do you want to exit? Unsaved changes may be lost.", "Exit?", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
                     if (confirm == JOptionPane.YES_OPTION) {
                         if (autoSave) saveDataQuiet();
+                        dispose();
                         System.exit(0);
                     }
                 } else {
+                    dispose();
                     System.exit(0);
                 }
             }
@@ -96,7 +98,11 @@ public class AttendanceCalculator extends JFrame {
         exportHtmlMenu.addActionListener(e -> exportHTML());
         JMenuItem exitMenu = new JMenuItem("Exit");
         exitMenu.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-        exitMenu.addActionListener(e -> System.exit(0));
+        exitMenu.addActionListener(e -> {
+            if (autoSave && tableModel.getRowCount() > 0) saveDataQuiet();
+            dispose();
+            System.exit(0);
+        });
         JMenuItem newMenu = new JMenuItem("New Subject");
         newMenu.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         newMenu.addActionListener(e -> {
