@@ -1525,7 +1525,9 @@ public class AttendanceCalculator extends JFrame {
                 File backupFile = new File(databaseFile + ".bak");
                 java.nio.file.Files.copy(mainFile.toPath(), backupFile.toPath(), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
             }
-        } catch (IOException ignored) {}
+        } catch (IOException ex) {
+            System.err.println("Warning: Could not create backup file: " + ex.getMessage());
+        }
         try (PrintWriter pw = new PrintWriter(new FileWriter(databaseFile))) {
             for (int i = 0; i < tableModel.getRowCount(); i++) {
                 String subject = (String) tableModel.getValueAt(i, 0);
