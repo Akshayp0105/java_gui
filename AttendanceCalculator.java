@@ -180,7 +180,7 @@ public class AttendanceCalculator extends JFrame {
             autoSave = autoSaveMenuItem.isSelected();
             for (java.awt.Component c : statusBar.getComponents()) {
                 if (c instanceof JLabel && ((JLabel) c).getText().startsWith("Auto-Save:")) {
-                    ((JLabel) c).setText("Auto-Save: " + (autoSave ? "ON" : "OFF"));
+                    ((JLabel) c).setText("AutoSave: " + (autoSave ? "ON" : "OFF"));
                     break;
                 }
             }
