@@ -103,10 +103,13 @@ public class AttendanceCalculator extends JFrame {
         JMenu fileMenu = new JMenu("File");
         fileMenu.setFont(FONT_MENU);
         JMenuItem saveMenu = new JMenuItem("Save");
-        saveMenu.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        saveMenu.setFont(FONT_MENU);
         saveMenu.addActionListener(e -> saveData());
+        JMenuItem saveAsMenu = new JMenuItem("Save As CSV");
+        saveAsMenu.setFont(FONT_MENU);
+        saveAsMenu.addActionListener(e -> exportCSV());
         JMenuItem loadMenu = new JMenuItem("Load");
-        loadMenu.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        loadMenu.setFont(FONT_MENU);
         loadMenu.addActionListener(e -> loadData());
         JMenuItem exportMenu = new JMenuItem("Export CSV");
         exportMenu.setFont(new Font("Segoe UI", Font.PLAIN, 13));
@@ -136,6 +139,7 @@ public class AttendanceCalculator extends JFrame {
         fileMenu.add(newMenu);
         fileMenu.addSeparator();
         fileMenu.add(saveMenu);
+        fileMenu.add(saveAsMenu);
         fileMenu.add(loadMenu);
         fileMenu.addSeparator();
         fileMenu.add(exportMenu);
