@@ -335,6 +335,28 @@ public class AttendanceCalculator extends JFrame {
                 else if (focused == requiredPercentageField) calculateAndAdd();
             }
         });
+        rootPane.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("TAB"), "tabNext");
+        rootPane.getActionMap().put("tabNext", new AbstractAction() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                Component focused = KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner();
+                if (focused == subjectField) totalClassesField.requestFocus();
+                else if (focused == totalClassesField) attendedClassesField.requestFocus();
+                else if (focused == attendedClassesField) requiredPercentageField.requestFocus();
+                else if (focused == requiredPercentageField) categoryCombo.requestFocus();
+            }
+        });
+        rootPane.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("shift TAB"), "tabPrev");
+        rootPane.getActionMap().put("tabPrev", new AbstractAction() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                Component focused = KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner();
+                if (focused == totalClassesField) subjectField.requestFocus();
+                else if (focused == attendedClassesField) totalClassesField.requestFocus();
+                else if (focused == requiredPercentageField) attendedClassesField.requestFocus();
+                else if (focused == categoryCombo) requiredPercentageField.requestFocus();
+            }
+        });
 
 
         JMenu helpMenu = new JMenu("Help");
