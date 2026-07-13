@@ -1690,6 +1690,9 @@ public class AttendanceCalculator extends JFrame {
                     if (line.trim().isEmpty()) continue;
                     List<String> fields = parseCsvLine(line);
                     if (fields.size() >= 6) {
+                        while (fields.size() < 8) {
+                            fields.add("");
+                        }
                         tableModel.addRow(fields.toArray());
                         imported++;
                     }
