@@ -1199,6 +1199,11 @@ public class AttendanceCalculator extends JFrame {
         subjectTable.getTableHeader().setForeground(fg);
         subjectTable.setGridColor(dark ? new Color(70, 70, 70) : new Color(200, 200, 200));
         overallAttendanceLabel.setForeground(fg);
+        for (Component c : statusBar.getComponents()) {
+            if (c instanceof JLabel) {
+                c.setForeground(dark ? Color.BLACK : Color.WHITE);
+            }
+        }
         repaint();
     }
 
