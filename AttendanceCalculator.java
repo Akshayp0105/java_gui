@@ -128,7 +128,8 @@ public class AttendanceCalculator extends JFrame {
             System.exit(0);
         });
         JMenuItem newMenu = new JMenuItem("New Subject");
-        newMenu.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        newMenu.setFont(FONT_MENU);
+        newMenu.setAccelerator(KeyStroke.getKeyStroke("control N"));
         newMenu.addActionListener(e -> {
             subjectField.setText("");
             totalClassesField.setText("");
