@@ -9,6 +9,12 @@ import java.util.Stack;
 
 public class AttendanceCalculator extends JFrame {
     private static final String APP_VERSION = "2.3.0";
+    private static final Color COLOR_HEADER = new Color(41, 128, 185);
+    private static final Color COLOR_SAFE = new Color(39, 174, 96);
+    private static final Color COLOR_WARNING = new Color(241, 196, 15);
+    private static final Color COLOR_DANGER = new Color(192, 57, 43);
+    private static final Color COLOR_TABLE_HEADER = new Color(236, 240, 241);
+    private static final Color COLOR_SELECTION = new Color(189, 195, 199);
     private JTextField subjectField;
     private JTextField totalClassesField;
     private JTextField attendedClassesField;
@@ -67,7 +73,7 @@ public class AttendanceCalculator extends JFrame {
 
         // Header Panel
         JPanel headerPanel = new JPanel();
-        headerPanel.setBackground(new Color(41, 128, 185));
+        headerPanel.setBackground(COLOR_HEADER);
         int hour = java.time.LocalTime.now().getHour();
         String greeting = hour < 11 ? "Good Morning" : hour < 16 ? "Good Afternoon" : "Good Evening";
         JLabel titleLabel = new JLabel(greeting + " - Attendance Calculator Pro");
@@ -644,7 +650,7 @@ public class AttendanceCalculator extends JFrame {
         subjectTable.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         subjectTable.setRowSorter(new javax.swing.table.TableRowSorter<>(tableModel));
         subjectTable.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 14));
-        subjectTable.getTableHeader().setBackground(new Color(236, 240, 241));
+        subjectTable.getTableHeader().setBackground(COLOR_TABLE_HEADER);
         subjectTable.getTableHeader().setToolTipText("<html><b>Subject</b> - Name<br><b>Total</b> - Classes held<br><b>Attended</b> - Classes attended<br><b>Current %</b> - Current %<br><b>Required %</b> - Required %<br><b>Status</b> - Safe/Alert<br><b>Trend</b> - UP/DOWN<br><b>Category</b> - Type</html>");
 
         tableModel.addTableModelListener(e -> {
@@ -676,7 +682,7 @@ public class AttendanceCalculator extends JFrame {
                 }
             }
         });
-        subjectTable.setSelectionBackground(new Color(189, 195, 199));
+        subjectTable.setSelectionBackground(COLOR_SELECTION);
         subjectTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         subjectTable.setShowGrid(true);
         subjectTable.setIntercellSpacing(new Dimension(1, 1));
@@ -1293,7 +1299,7 @@ public class AttendanceCalculator extends JFrame {
                 statusBar.setBackground(new Color(192, 57, 43));
             }
         } else {
-            statusBar.setBackground(new Color(52, 152, 219));
+        statusBar.setBackground(COLOR_HEADER);
         }
     }
 
