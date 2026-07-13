@@ -633,7 +633,7 @@ public class AttendanceCalculator extends JFrame {
         calculateButton.setFont(new Font("Segoe UI", Font.BOLD, 15));
         calculateButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         calculateButton.setToolTipText("Calculate attendance and add subject to table (Enter key also works in any input field)");
-        gbc.gridx = 1; gbc.gridy = 2; gbc.gridwidth = 2; 
+        gbc.gridx = 2; gbc.gridy = 2; gbc.gridwidth = 2; 
         gbc.insets = new Insets(15, 5, 5, 5);
         inputPanel.add(calculateButton, gbc);
 
