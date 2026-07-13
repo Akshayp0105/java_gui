@@ -62,6 +62,15 @@ public class AttendanceCalculator extends JFrame {
                     System.exit(0);
                 }
             }
+
+            @Override
+            public void windowActivated(java.awt.event.WindowEvent e) {
+                if (tableModel.getRowCount() > 0) {
+                    setTitle("AC Pro v" + APP_VERSION + " | " + java.time.LocalDate.now() + " | Modified");
+                } else {
+                    setTitle("AC Pro v" + APP_VERSION + " | " + java.time.LocalDate.now());
+                }
+            }
         });
 
         addWindowStateListener(e -> {
