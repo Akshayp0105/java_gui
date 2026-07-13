@@ -1962,5 +1962,3 @@ public class AttendanceCalculator extends JFrame {
     }
 }
 
-
-
