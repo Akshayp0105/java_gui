@@ -10,6 +10,18 @@ import java.util.List;
 
 public class AttendanceCalculator extends JFrame {
     private static final String APP_VERSION = "2.4.0";
+    private static final String HELP_TEXT = "Keyboard Shortcuts:\n"
+            + "Ctrl+S - Save | Ctrl+L - Load | Ctrl+E - Export | Ctrl+A - Select All\n"
+            + "Ctrl+Z - Undo | Ctrl+D - Duplicate | Ctrl+R - Reset | Ctrl+P - Print\n"
+            + "Ctrl+N - New Subject | Delete - Remove Row | F1 - Help\n"
+            + "Enter - Calculate | Click table headers to sort | Use Search field to filter\n\n"
+            + "How to use:\n"
+            + "1. Enter subject name, total classes, attended classes, and required percentage.\n"
+            + "2. Click Calculate (or press Enter) to add to the table.\n"
+            + "3. Status column shows if you're safe or need more classes.\n"
+            + "4. Use File menu to save/load or export/import data.\n"
+            + "5. Toggle Dark Mode from View menu.\n"
+            + "6. Use Search field to filter subjects in the table.";
     private static final Color COLOR_HEADER = new Color(41, 128, 185);
     private static final Color COLOR_SAFE = new Color(39, 174, 96);
     private static final Color COLOR_WARNING = new Color(241, 196, 15);
@@ -354,18 +366,7 @@ public class AttendanceCalculator extends JFrame {
         aboutMenu.addActionListener(e -> JOptionPane.showMessageDialog(this, "AC Pro v" + APP_VERSION + "\nMade by LOQ\n\nJava Swing Application\nBuilt for Students\n\nCreated: 2024 | Updated: " + java.time.Year.now(), "About", JOptionPane.INFORMATION_MESSAGE));
         JMenuItem helpContentMenu = new JMenuItem("Help");
         helpContentMenu.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-        helpContentMenu.addActionListener(e -> JOptionPane.showMessageDialog(this, "Keyboard Shortcuts:\n"
-                + "Ctrl+S - Save | Ctrl+L - Load | Ctrl+E - Export | Ctrl+A - Select All\n"
-                + "Ctrl+Z - Undo | Ctrl+D - Duplicate | Ctrl+R - Reset | Ctrl+P - Print\n"
-                + "Ctrl+N - New Subject | Delete - Remove Row | F1 - Help\n"
-                + "Enter - Calculate | Click table headers to sort | Use Search field to filter\n\n"
-                + "How to use:\n"
-                + "1. Enter subject name, total classes, attended classes, and required percentage.\n"
-                + "2. Click Calculate (or press Enter) to add to the table.\n"
-                + "3. Status column shows if you're safe or need more classes.\n"
-                + "4. Use File menu to save/load or export/import data.\n"
-                + "5. Toggle Dark Mode from View menu.\n"
-                + "6. Use Search field to filter subjects in the table.", "Help", JOptionPane.INFORMATION_MESSAGE));
+        helpContentMenu.addActionListener(e -> JOptionPane.showMessageDialog(this, HELP_TEXT, "Help", JOptionPane.INFORMATION_MESSAGE));
         helpMenu.add(helpContentMenu);
         helpMenu.add(aboutMenu);
 
@@ -520,18 +521,7 @@ public class AttendanceCalculator extends JFrame {
         actionMap.put("showHelp", new AbstractAction() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "Keyboard Shortcuts:\n"
-                        + "Ctrl+S - Save | Ctrl+L - Load | Ctrl+E - Export | Ctrl+A - Select All\n"
-                        + "Ctrl+Z - Undo | Ctrl+D - Duplicate | Ctrl+R - Reset | Ctrl+P - Print\n"
-                        + "Ctrl+N - New Subject | Delete - Remove Row | F1 - Help\n"
-                        + "Enter - Calculate | Click table headers to sort | Use Search field to filter\n\n"
-                        + "How to use:\n"
-                        + "1. Enter subject name, total classes, attended classes, and required percentage.\n"
-                        + "2. Click Calculate (or press Enter) to add to the table.\n"
-                        + "3. Status column shows if you're safe or need more classes.\n"
-                        + "4. Use File menu to save/load or export/import data.\n"
-                        + "5. Toggle Dark Mode from View menu.\n"
-                        + "6. Use Search field to filter subjects in the table.", "Help - Attendance Calculator Pro v" + APP_VERSION, JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, HELP_TEXT, "Help - Attendance Calculator Pro v" + APP_VERSION, JOptionPane.INFORMATION_MESSAGE);
             }
         });
         inputMap.put(KeyStroke.getKeyStroke("control N"), "newSubject");
