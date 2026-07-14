@@ -259,7 +259,7 @@ public class AttendanceCalculator extends JFrame {
                         JOptionPane.showMessageDialog(this, sb.toString(), "Attendance Goal", JOptionPane.INFORMATION_MESSAGE);
                     }
                 } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(this, "Invalid percentage.", "Goal Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Invalid percentage. Please enter a number between 0 and 100.", "Goal Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
