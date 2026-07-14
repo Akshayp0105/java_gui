@@ -8,6 +8,14 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 
+/**
+ * Attendance Calculator Pro - A desktop application for tracking student attendance.
+ * Features include: save/load, export (CSV/HTML/JSON), dark mode, undo/redo,
+ * keyboard shortcuts, system tray integration, and statistics charts.
+ *
+ * @author LOQ
+ * @version 2.4.0
+ */
 public class AttendanceCalculator extends JFrame {
     private static final String APP_NAME = "Attendance Calculator Pro";
     private static final String APP_VERSION = "2.4.0";
