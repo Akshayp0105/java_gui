@@ -64,6 +64,7 @@ public class AttendanceCalculator extends JFrame {
     private static final String EXT_JSON = ".json";
     private static final String EXT_HTML = ".html";
     private static final String[] COLUMN_NAMES = {"Subject", "Total", "Attended", "Current %", "Required %", "Status / Needed", "Trend", "Category"};
+    private static final String CSV_HEADER = "Subject,Total,Attended,Current %,Required %,Status/Needed,Trend,Category";
     private static final Color COLOR_HEADER = new Color(41, 128, 185);
     private static final Color COLOR_SAFE = new Color(39, 174, 96);
     private static final Color COLOR_WARNING = new Color(241, 196, 15);
