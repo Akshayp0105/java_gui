@@ -1,50 +1,30 @@
+# Compiled class files
 *.class
-# Attendance Calculator Pro v2.2.0
-# update 1 for 2026-06-21
-# update 2 for 2026-06-21
-# update 3 for 2026-06-21
-# update 4 for 2026-06-21
-# update 5 for 2026-06-21
-# update 6 for 2026-06-21
-# update 7 for 2026-06-21
-# update 8 for 2026-06-21
-# update 9 for 2026-06-21
-# update 10 for 2026-06-21
-# update 11 for 2026-06-21
-# update 12 for 2026-06-21
-# update 1 for 2026-06-22
-# update 2 for 2026-06-22
-# update 3 for 2026-06-22
-# update 4 for 2026-06-22
-# update 5 for 2026-06-22
-# update 6 for 2026-06-22
-# update 7 for 2026-06-22
-# update 8 for 2026-06-22
-# update 9 for 2026-06-22
-# update 10 for 2026-06-22
-# update 11 for 2026-06-22
-# update 12 for 2026-06-22
-# update 1 for 2026-06-23
-# update 2 for 2026-06-23
-# update 3 for 2026-06-23
-# update 4 for 2026-06-23
-# update 5 for 2026-06-23
-# update 6 for 2026-06-23
-# update 7 for 2026-06-23
-# update 8 for 2026-06-23
-# update 9 for 2026-06-23
-# update 10 for 2026-06-23
-# update 11 for 2026-06-23
-# update 12 for 2026-06-23
-# minor fix 13
-# minor fix 14
-# update 1 for 2026-07-13
-# update 2 for 2026-07-13
-# update 3 for 2026-07-13
-# update 4 for 2026-07-13
-# update 5 for 2026-07-13
-# update 6 for 2026-07-13
-# update 7 for 2026-07-13
-# update 8 for 2026-07-13
-# update 9 for 2026-07-13
-# update 10 for 2026-07-13
+
+# Package files
+*.jar
+*.war
+*.ear
+
+# Log files
+*.log
+
+# Build directories
+build/
+target/
+bin/
+
+# IDE files
+.idea/
+*.iml
+.vscode/
+*.swp
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Attendance data files
+attendance_data.csv
+*.bak
