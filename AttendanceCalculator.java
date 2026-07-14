@@ -22,6 +22,14 @@ public class AttendanceCalculator extends JFrame {
             + "4. Use File menu to save/load or export/import data.\n"
             + "5. Toggle Dark Mode from View menu.\n"
             + "6. Use Search field to filter subjects in the table.";
+    private static final int COL_SUBJECT = 0;
+    private static final int COL_TOTAL = 1;
+    private static final int COL_ATTENDED = 2;
+    private static final int COL_CURRENT_PCT = 3;
+    private static final int COL_REQUIRED_PCT = 4;
+    private static final int COL_STATUS = 5;
+    private static final int COL_TREND = 6;
+    private static final int COL_CATEGORY = 7;
     private static final Color COLOR_HEADER = new Color(41, 128, 185);
     private static final Color COLOR_SAFE = new Color(39, 174, 96);
     private static final Color COLOR_WARNING = new Color(241, 196, 15);
