@@ -1312,7 +1312,7 @@ public class AttendanceCalculator extends JFrame {
                     String.format("%.0f%%", required),
                     status,
                     trend,
-                    categoryCombo.getSelectedItem()
+                    categoryCombo.getSelectedItem() != null ? categoryCombo.getSelectedItem() : "General"
             };
             saveUndoState();
             tableModel.addRow(row);
