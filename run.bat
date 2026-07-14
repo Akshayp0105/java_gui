@@ -1,0 +1,3 @@
+@echo off
+echo Running Attendance Calculator Pro...
+java AttendanceCalculator
