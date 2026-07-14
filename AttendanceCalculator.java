@@ -47,6 +47,10 @@ public class AttendanceCalculator extends JFrame {
     private static final String STATUS_ALERT = "Alert";
     private static final String STATUS_ON_TRACK = "On track";
     private static final String STATUS_CANNOT_MISS = "Cannot miss";
+    private static final String TREND_UP = "UP";
+    private static final String TREND_DOWN = "DOWN";
+    private static final String TREND_STABLE = "STABLE";
+    private static final String TREND_NEW = "NEW";
     private static final Color COLOR_HEADER = new Color(41, 128, 185);
     private static final Color COLOR_SAFE = new Color(39, 174, 96);
     private static final Color COLOR_WARNING = new Color(241, 196, 15);
