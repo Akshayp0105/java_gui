@@ -57,6 +57,8 @@ public class AttendanceCalculator extends JFrame {
     private static final String[] FILTER_CATEGORIES = {"All", "Theory", "Lab", "Core", "Elective", "Other"};
     private static final String[] STATUS_FILTERS = {"All", "Safe", "At Risk"};
     private static final int MAX_UNDO_HISTORY = 20;
+    private static final String DEFAULT_DATABASE_FILE = "attendance_data.csv";
+    private static final String BACKUP_SUFFIX = ".bak";
     private static final Color COLOR_HEADER = new Color(41, 128, 185);
     private static final Color COLOR_SAFE = new Color(39, 174, 96);
     private static final Color COLOR_WARNING = new Color(241, 196, 15);
