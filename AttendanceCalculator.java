@@ -43,6 +43,10 @@ public class AttendanceCalculator extends JFrame {
     private static final String DEFAULT_PERCENTAGE = "75";
     private static final int MAX_SUBJECT_NAME_LENGTH = 40;
     private static final int MIN_SUBJECT_NAME_LENGTH = 1;
+    private static final String STATUS_SAFE = "Safe";
+    private static final String STATUS_ALERT = "Alert";
+    private static final String STATUS_ON_TRACK = "On track";
+    private static final String STATUS_CANNOT_MISS = "Cannot miss";
     private static final Color COLOR_HEADER = new Color(41, 128, 185);
     private static final Color COLOR_SAFE = new Color(39, 174, 96);
     private static final Color COLOR_WARNING = new Color(241, 196, 15);
