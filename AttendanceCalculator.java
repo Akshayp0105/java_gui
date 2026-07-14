@@ -130,13 +130,7 @@ public class AttendanceCalculator extends JFrame {
         JMenuItem newMenu = new JMenuItem("New Subject");
         newMenu.setFont(FONT_MENU);
         newMenu.setAccelerator(KeyStroke.getKeyStroke("control N"));
-        newMenu.addActionListener(e -> {
-            subjectField.setText("");
-            totalClassesField.setText("");
-            attendedClassesField.setText("");
-            requiredPercentageField.setText("75");
-            subjectField.requestFocus();
-        });
+        newMenu.addActionListener(e -> resetInputFields());
         fileMenu.add(newMenu);
         fileMenu.addSeparator();
         fileMenu.add(saveMenu);
@@ -161,13 +155,7 @@ public class AttendanceCalculator extends JFrame {
         fileMenu.addSeparator();
         JMenuItem resetMenu = new JMenuItem("Reset Fields");
         resetMenu.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-        resetMenu.addActionListener(e -> {
-            subjectField.setText("");
-            totalClassesField.setText("");
-            attendedClassesField.setText("");
-            requiredPercentageField.setText("75");
-            subjectField.requestFocus();
-        });
+        resetMenu.addActionListener(e -> resetInputFields());
         fileMenu.add(resetMenu);
         fileMenu.addSeparator();
         fileMenu.add(exitMenu);
@@ -442,11 +430,7 @@ public class AttendanceCalculator extends JFrame {
         actionMap.put("resetFields", new AbstractAction() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent e) {
-                subjectField.setText("");
-                totalClassesField.setText("");
-                attendedClassesField.setText("");
-                requiredPercentageField.setText("75");
-                subjectField.requestFocus();
+                resetInputFields();
             }
         });
         inputMap.put(KeyStroke.getKeyStroke("DELETE"), "deleteRow");
@@ -554,11 +538,7 @@ public class AttendanceCalculator extends JFrame {
         actionMap.put("newSubject", new AbstractAction() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent e) {
-                subjectField.setText("");
-                totalClassesField.setText("");
-                attendedClassesField.setText("");
-                requiredPercentageField.setText("75");
-                subjectField.requestFocus();
+                resetInputFields();
             }
         });
         inputMap.put(KeyStroke.getKeyStroke("control P"), "printTable");
@@ -1183,6 +1163,14 @@ public class AttendanceCalculator extends JFrame {
             subjectTable.setRowSelectionInterval(selectedRow + 1, selectedRow + 1);
             updateOverallAttendance();
         });
+    }
+
+    private void resetInputFields() {
+        subjectField.setText("");
+        totalClassesField.setText("");
+        attendedClassesField.setText("");
+        requiredPercentageField.setText("75");
+        subjectField.requestFocus();
     }
 
     private void moveRowToTopOrBottom(boolean toTop) {
