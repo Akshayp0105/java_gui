@@ -9,7 +9,9 @@ import java.util.Deque;
 import java.util.List;
 
 public class AttendanceCalculator extends JFrame {
+    private static final String APP_NAME = "Attendance Calculator Pro";
     private static final String APP_VERSION = "2.4.0";
+    private static final String APP_TITLE_PREFIX = "AC Pro v" + APP_VERSION;
     private static final String HELP_TEXT = "Keyboard Shortcuts:\n"
             + "Ctrl+S - Save | Ctrl+L - Load | Ctrl+E - Export | Ctrl+A - Select All\n"
             + "Ctrl+Z - Undo | Ctrl+D - Duplicate | Ctrl+R - Reset | Ctrl+P - Print\n"
@@ -91,9 +93,9 @@ public class AttendanceCalculator extends JFrame {
             @Override
             public void windowActivated(java.awt.event.WindowEvent e) {
                 if (tableModel.getRowCount() > 0) {
-                    setTitle("AC Pro v" + APP_VERSION + " | " + java.time.LocalDate.now() + " | Modified");
+                    setTitle(APP_TITLE_PREFIX + " | " + java.time.LocalDate.now() + " | Modified");
                 } else {
-                    setTitle("AC Pro v" + APP_VERSION + " | " + java.time.LocalDate.now());
+        setTitle(APP_TITLE_PREFIX + " | " + java.time.LocalDate.now());
                 }
             }
         });
@@ -372,7 +374,7 @@ public class AttendanceCalculator extends JFrame {
         helpMenu.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         JMenuItem aboutMenu = new JMenuItem("About");
         aboutMenu.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-        aboutMenu.addActionListener(e -> JOptionPane.showMessageDialog(this, "AC Pro v" + APP_VERSION + "\nMade by LOQ\n\nJava Swing Application\nBuilt for Students\n\nCreated: 2024 | Updated: " + java.time.Year.now(), "About", JOptionPane.INFORMATION_MESSAGE));
+        aboutMenu.addActionListener(e -> JOptionPane.showMessageDialog(this, APP_TITLE_PREFIX + "\nMade by LOQ\n\nJava Swing Application\nBuilt for Students\n\nCreated: 2024 | Updated: " + java.time.Year.now(), "About", JOptionPane.INFORMATION_MESSAGE));
         JMenuItem helpContentMenu = new JMenuItem("Help");
         helpContentMenu.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         helpContentMenu.addActionListener(e -> JOptionPane.showMessageDialog(this, HELP_TEXT, "Help", JOptionPane.INFORMATION_MESSAGE));
@@ -1556,7 +1558,7 @@ public class AttendanceCalculator extends JFrame {
     private void saveData() {
         saveDataQuiet();
         lastModifiedLabel.setText("Modified: " + java.time.LocalTime.now().format(java.time.format.DateTimeFormatter.ofPattern("HH:mm:ss")));
-        setTitle("AC Pro v" + APP_VERSION + " | " + java.time.LocalDate.now() + " | Saved");
+        setTitle(APP_TITLE_PREFIX + " | " + java.time.LocalDate.now() + " | Saved");
         JOptionPane.showMessageDialog(this, "Saved!", "Save", JOptionPane.INFORMATION_MESSAGE);
     }
 
