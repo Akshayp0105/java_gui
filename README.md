@@ -26,7 +26,7 @@ A Java Swing-based attendance tracking application for students.
 - Time-based greeting in header
 - Dynamic table cell tooltips with full details
 - Column show/hide toggle in View menu
-- Export to CSV, HTML, or Summary Report
+- Export to CSV, HTML, JSON, or Summary Report
 - Move rows up/down and to top/bottom
 - Rename subjects (F2)
 - Batch delete multiple rows
@@ -34,6 +34,9 @@ A Java Swing-based attendance tracking application for students.
 - Subject name character limit validation
 - Unsaved data warning before load
 - Overwrite confirmation on exports
+- System tray integration
+- Attendance goal tracker
+- Weekly summary report
 
 ## Keyboard Shortcuts
 
@@ -73,6 +76,7 @@ All file operations include error handling and user feedback.
 - **Restore from Backup**: Restore data from backup file
 - **Export as CSV**: Export table data to CSV file (with overwrite confirmation)
 - **Export as HTML**: Export table data to styled HTML report
+- **Export as JSON**: Export table data to JSON file
 - **Export Summary Report**: Export a text summary report
 - **Import from CSV**: Import subjects from a CSV file (supports quoted fields)
 
@@ -88,8 +92,29 @@ All file operations include error handling and user feedback.
 8. Right-click on table rows for context menu actions (rename, move, delete, export)
 9. Use **Move Up/Down** buttons or **Move to Top/Bottom** from context menu to reorder rows
 
+## Building and Running
+
+### Quick Start (Windows)
+
+Double-click `compile.bat` to compile, then run:
+
+```bash
+java AttendanceCalculator
+```
+
+### Manual Compilation
+
+```bash
+javac -encoding UTF-8 AttendanceCalculator.java
+java AttendanceCalculator
+```
+
 ## System Requirements
 
 - Java JDK 8 or higher
 - Windows/macOS/Linux compatible
 - No external dependencies required
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
