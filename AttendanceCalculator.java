@@ -30,6 +30,7 @@ public class AttendanceCalculator extends JFrame {
     private static final int COL_STATUS = 5;
     private static final int COL_TREND = 6;
     private static final int COL_CATEGORY = 7;
+    private static final String DEFAULT_PERCENTAGE = "75";
     private static final Color COLOR_HEADER = new Color(41, 128, 185);
     private static final Color COLOR_SAFE = new Color(39, 174, 96);
     private static final Color COLOR_WARNING = new Color(241, 196, 15);
@@ -605,7 +606,7 @@ public class AttendanceCalculator extends JFrame {
         JLabel reqLabel = new JLabel("Required %:");
         reqLabel.setFont(labelFont);
         gbc.gridx = 2; gbc.gridy = 1; inputPanel.add(reqLabel, gbc);
-        requiredPercentageField = new JTextField("75", 10);
+        requiredPercentageField = new JTextField(DEFAULT_PERCENTAGE, 10);
         requiredPercentageField.setFont(fieldFont);
         requiredPercentageField.setToolTipText("Minimum attendance percentage required (default: 75%)");
         gbc.gridx = 3; gbc.gridy = 1; inputPanel.add(requiredPercentageField, gbc);
@@ -1104,7 +1105,7 @@ public class AttendanceCalculator extends JFrame {
                 JOptionPane.showMessageDialog(this, "Please select a subject row.", "Custom %", JOptionPane.WARNING_MESSAGE);
                 return;
             }
-            String input = JOptionPane.showInputDialog(this, "Enter custom required percentage:", "75");
+            String input = JOptionPane.showInputDialog(this, "Enter custom required percentage:", DEFAULT_PERCENTAGE);
             if (input == null) return;
             try {
                 double customPct = Double.parseDouble(input.trim());
@@ -1167,7 +1168,7 @@ public class AttendanceCalculator extends JFrame {
         subjectField.setText("");
         totalClassesField.setText("");
         attendedClassesField.setText("");
-        requiredPercentageField.setText("75");
+        requiredPercentageField.setText(DEFAULT_PERCENTAGE);
         subjectField.requestFocus();
     }
 
