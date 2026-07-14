@@ -266,22 +266,22 @@ public class AttendanceCalculator extends JFrame {
         viewMenu.addSeparator();
         JMenuItem sortByName = new JMenuItem("Sort by Name");
         sortByName.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-        sortByName.addActionListener(e -> subjectTable.getRowSorter().setSortKeys(java.util.List.of(new javax.swing.RowSorter.SortKey(0, javax.swing.SortOrder.ASCENDING))));
+        sortByName.addActionListener(e -> subjectTable.getRowSorter().setSortKeys(java.util.List.of(new javax.swing.RowSorter.SortKey(COL_SUBJECT, javax.swing.SortOrder.ASCENDING))));
         viewMenu.add(sortByName);
 
         JMenuItem sortByPct = new JMenuItem("Sort by Attendance %");
         sortByPct.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-        sortByPct.addActionListener(e -> subjectTable.getRowSorter().setSortKeys(java.util.List.of(new javax.swing.RowSorter.SortKey(3, javax.swing.SortOrder.DESCENDING))));
+        sortByPct.addActionListener(e -> subjectTable.getRowSorter().setSortKeys(java.util.List.of(new javax.swing.RowSorter.SortKey(COL_CURRENT_PCT, javax.swing.SortOrder.DESCENDING))));
         viewMenu.add(sortByPct);
 
         JMenuItem sortByStatus = new JMenuItem("Sort by Status");
         sortByStatus.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-        sortByStatus.addActionListener(e -> subjectTable.getRowSorter().setSortKeys(java.util.List.of(new javax.swing.RowSorter.SortKey(5, javax.swing.SortOrder.ASCENDING))));
+        sortByStatus.addActionListener(e -> subjectTable.getRowSorter().setSortKeys(java.util.List.of(new javax.swing.RowSorter.SortKey(COL_STATUS, javax.swing.SortOrder.ASCENDING))));
         viewMenu.add(sortByStatus);
 
         JMenuItem sortByCategory = new JMenuItem("Sort by Category");
         sortByCategory.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-        sortByCategory.addActionListener(e -> subjectTable.getRowSorter().setSortKeys(java.util.List.of(new javax.swing.RowSorter.SortKey(7, javax.swing.SortOrder.ASCENDING))));
+        sortByCategory.addActionListener(e -> subjectTable.getRowSorter().setSortKeys(java.util.List.of(new javax.swing.RowSorter.SortKey(COL_CATEGORY, javax.swing.SortOrder.ASCENDING))));
         viewMenu.add(sortByCategory);
 
         JCheckBoxMenuItem alwaysOnTopItem = new JCheckBoxMenuItem("Always on Top", false);
