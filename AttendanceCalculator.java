@@ -80,6 +80,7 @@ public class AttendanceCalculator extends JFrame {
     private static final String MSG_RENAME_TITLE = "Rename Subject";
     private static final String MSG_PRINT_ERROR = "Print Error";
     private static final String MSG_CHART_TITLE = "Statistics Chart - v";
+    private static final String MSG_WEEKLY_TITLE = "Weekly Summary";
     private static final Color COLOR_HEADER = new Color(41, 128, 185);
     private static final Color COLOR_SAFE = new Color(39, 174, 96);
     private static final Color COLOR_WARNING = new Color(241, 196, 15);
