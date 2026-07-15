@@ -43,6 +43,7 @@ public class AttendanceCalculator extends JFrame {
     private static final String DEFAULT_PERCENTAGE = "75";
     private static final int MAX_SUBJECT_NAME_LENGTH = 40;
     private static final int MIN_SUBJECT_NAME_LENGTH = 1;
+    private static final int MAX_STATUS_LABEL_LENGTH = 50;
     private static final String STATUS_SAFE = "Safe";
     private static final String STATUS_ALERT = "Alert";
     private static final String STATUS_ON_TRACK = "On track";
