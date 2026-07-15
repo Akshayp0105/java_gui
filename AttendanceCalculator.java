@@ -19,6 +19,7 @@ import java.util.List;
 public class AttendanceCalculator extends JFrame {
     private static final String APP_NAME = "Attendance Calculator Pro";
     private static final String APP_VERSION = "2.4.0";
+    private static final String APP_AUTHOR = "LOQ";
     private static final String APP_TITLE_PREFIX = "AC Pro v" + APP_VERSION;
     private static final String HELP_TEXT = "Keyboard Shortcuts:\n"
             + "Ctrl+S - Save | Ctrl+L - Load | Ctrl+E - Export | Ctrl+A - Select All\n"
