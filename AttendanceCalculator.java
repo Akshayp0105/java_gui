@@ -101,6 +101,8 @@ public class AttendanceCalculator extends JFrame {
     private static final Font FONT_BUTTON = new Font("Segoe UI", Font.BOLD, 13);
     private static final int DEFAULT_WINDOW_WIDTH = 900;
     private static final int DEFAULT_WINDOW_HEIGHT = 600;
+    private static final int MIN_WINDOW_WIDTH = 720;
+    private static final int MIN_WINDOW_HEIGHT = 460;
     private JTextField subjectField;
     private JTextField totalClassesField;
     private JTextField attendedClassesField;
