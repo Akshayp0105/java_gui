@@ -77,6 +77,7 @@ public class AttendanceCalculator extends JFrame {
     private static final String MSG_SAVE_SUCCESS = "Saved!";
     private static final String MSG_PREDICT_TITLE = "Attendance Prediction";
     private static final String MSG_CUSTOM_PCT_TITLE = "Custom Percentage";
+    private static final String MSG_RENAME_TITLE = "Rename Subject";
     private static final Color COLOR_HEADER = new Color(41, 128, 185);
     private static final Color COLOR_SAFE = new Color(39, 174, 96);
     private static final Color COLOR_WARNING = new Color(241, 196, 15);
