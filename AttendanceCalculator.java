@@ -72,6 +72,7 @@ public class AttendanceCalculator extends JFrame {
     private static final String MSG_DELETE_CONFIRM = "Are you sure you want to delete %d row(s)?";
     private static final String MSG_CLEAR_CONFIRM = "Are you sure you want to clear all data?";
     private static final String MSG_INPUT_ERROR = "Input Error";
+    private static final String MSG_EXPORT_SUCCESS = "Exported to: ";
     private static final Color COLOR_HEADER = new Color(41, 128, 185);
     private static final Color COLOR_SAFE = new Color(39, 174, 96);
     private static final Color COLOR_WARNING = new Color(241, 196, 15);
