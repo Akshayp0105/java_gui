@@ -106,6 +106,7 @@ public class AttendanceCalculator extends JFrame {
     private static final String APP_WEBSITE = "https://github.com/LOQ/attendance-calculator";
     private static final String APP_LICENSE = "MIT";
     private static final String APP_REPOSITORY = "https://github.com/Akshayp0105/java_gui";
+    private static final String APP_DESCRIPTION = "A desktop application for tracking student attendance with export, dark mode, and statistics features.";
     private JTextField subjectField;
     private JTextField totalClassesField;
     private JTextField attendedClassesField;
