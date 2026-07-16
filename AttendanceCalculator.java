@@ -115,6 +115,7 @@ public class AttendanceCalculator extends JFrame {
     private static final int MAX_BACKUP_COUNT = 5;
     private static final int AUTO_SAVE_INTERVAL = 300000;
     private static final String CONFIG_FILE_NAME = "config.properties";
+    private static final String LOG_FILE_NAME = "app.log";
     private JTextField subjectField;
     private JTextField totalClassesField;
     private JTextField attendedClassesField;
