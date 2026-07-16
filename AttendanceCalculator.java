@@ -117,6 +117,7 @@ public class AttendanceCalculator extends JFrame {
     private static final String CONFIG_FILE_NAME = "config.properties";
     private static final String LOG_FILE_NAME = "app.log";
     private static final String EXPORT_DIR_NAME = "exports";
+    private static final String BACKUP_DIR_NAME = "backups";
     private JTextField subjectField;
     private JTextField totalClassesField;
     private JTextField attendedClassesField;
