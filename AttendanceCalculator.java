@@ -118,6 +118,7 @@ public class AttendanceCalculator extends JFrame {
     private static final String LOG_FILE_NAME = "app.log";
     private static final String EXPORT_DIR_NAME = "exports";
     private static final String BACKUP_DIR_NAME = "backups";
+    private static final int TABLE_ROW_HEIGHT = 32;
     private JTextField subjectField;
     private JTextField totalClassesField;
     private JTextField attendedClassesField;
