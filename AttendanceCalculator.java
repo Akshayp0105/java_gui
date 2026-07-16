@@ -110,6 +110,7 @@ public class AttendanceCalculator extends JFrame {
     private static final String DEFAULT_ENCODING = "UTF-8";
     private static final String DATE_FORMAT = "yyyy-MM-dd";
     private static final String TIME_FORMAT = "HH:mm:ss";
+    private static final String PERCENTAGE_DISPLAY_FORMAT = "%.2f%%";
     private JTextField subjectField;
     private JTextField totalClassesField;
     private JTextField attendedClassesField;
