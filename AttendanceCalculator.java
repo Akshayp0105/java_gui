@@ -111,6 +111,7 @@ public class AttendanceCalculator extends JFrame {
     private static final String DATE_FORMAT = "yyyy-MM-dd";
     private static final String TIME_FORMAT = "HH:mm:ss";
     private static final String PERCENTAGE_DISPLAY_FORMAT = "%.2f%%";
+    private static final int BUFFER_SIZE = 1024;
     private JTextField subjectField;
     private JTextField totalClassesField;
     private JTextField attendedClassesField;
