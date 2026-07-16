@@ -109,6 +109,7 @@ public class AttendanceCalculator extends JFrame {
     private static final String APP_DESCRIPTION = "A desktop application for tracking student attendance with export, dark mode, and statistics features.";
     private static final String DEFAULT_ENCODING = "UTF-8";
     private static final String DATE_FORMAT = "yyyy-MM-dd";
+    private static final String TIME_FORMAT = "HH:mm:ss";
     private JTextField subjectField;
     private JTextField totalClassesField;
     private JTextField attendedClassesField;
