@@ -121,6 +121,7 @@ public class AttendanceCalculator extends JFrame {
     private static final int TABLE_ROW_HEIGHT = 32;
     private static final int SCROLL_UNIT_INC = 16;
     private static final int TOOLTIP_INIT_DELAY = 500;
+    private static final int TOOLTIP_DISMISS_DELAY = 10000;
     private JTextField subjectField;
     private JTextField totalClassesField;
     private JTextField attendedClassesField;
