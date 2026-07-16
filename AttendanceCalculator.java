@@ -104,6 +104,7 @@ public class AttendanceCalculator extends JFrame {
     private static final int MIN_WINDOW_WIDTH = 720;
     private static final int MIN_WINDOW_HEIGHT = 460;
     private static final String APP_WEBSITE = "https://github.com/LOQ/attendance-calculator";
+    private static final String APP_LICENSE = "MIT";
     private JTextField subjectField;
     private JTextField totalClassesField;
     private JTextField attendedClassesField;
