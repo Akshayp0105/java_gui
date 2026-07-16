@@ -123,6 +123,7 @@ public class AttendanceCalculator extends JFrame {
     private static final int TOOLTIP_INIT_DELAY = 500;
     private static final int TOOLTIP_DISMISS_DELAY = 10000;
     private static final String GREETING_MORNING = "Good Morning";
+    private static final String GREETING_AFTERNOON = "Good Afternoon";
     private JTextField subjectField;
     private JTextField totalClassesField;
     private JTextField attendedClassesField;
