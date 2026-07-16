@@ -125,6 +125,7 @@ public class AttendanceCalculator extends JFrame {
     private static final String GREETING_MORNING = "Good Morning";
     private static final String GREETING_AFTERNOON = "Good Afternoon";
     private static final String GREETING_EVENING = "Good Evening";
+    private static final String EXIT_CONFIRM_TITLE = "Exit?";
     private JTextField subjectField;
     private JTextField totalClassesField;
     private JTextField attendedClassesField;
